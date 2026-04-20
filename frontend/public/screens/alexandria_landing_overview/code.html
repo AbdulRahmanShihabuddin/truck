@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alexandria - Fleet Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#dbc766",
+                        "inverse-on-surface": "#f0f0f9",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed": "#dae2ff",
+                        "outline": "#737784",
+                        "inverse-primary": "#b1c5ff",
+                        "secondary-container": "#c1d1ff",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-fixed": "#f8e37f",
+                        "on-primary-container": "#b0c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#094cb2",
+                        "background": "#faf8ff",
+                        "secondary": "#4e5d86",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f3f3fc",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#beab4e",
+                        "tertiary": "#6d5e00",
+                        "surface": "#faf8ff",
+                        "on-tertiary-fixed-variant": "#524600",
+                        "on-tertiary-fixed": "#211b00",
+                        "on-secondary-fixed-variant": "#36466d",
+                        "secondary-fixed": "#dae2ff",
+                        "surface-variant": "#e2e2eb",
+                        "secondary-fixed-dim": "#b6c6f4",
+                        "surface-container-highest": "#e2e2eb",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c3c6d5",
+                        "on-error": "#ffffff",
+                        "on-background": "#191b22",
+                        "surface-tint": "#2259bf",
+                        "on-secondary-container": "#495981",
+                        "on-primary-fixed-variant": "#00419e",
+                        "on-surface": "#191b22",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e7e7f1",
+                        "on-secondary-fixed": "#071a3f",
+                        "primary": "#003686",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "surface-container": "#ededf6",
+                        "surface-dim": "#d9d9e2",
+                        "on-surface-variant": "#434653",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#4a3f00",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Public Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-dim text-primary font-body text-lg font-serif italic text-tertiary h-screen w-72 left-0 top-0 fixed flex flex-col gap-8 p-8 border-r-0 shadow-[4px_0_24px_rgba(25,27,34,0.06)] z-40 hidden md:flex">
+<div>
+<h1 class="font-headline text-2xl font-bold tracking-tight text-primary">The Curator</h1>
+<p class="font-label text-sm text-on-surface-variant mt-1">Fleet Intelligence</p>
+</div>
+<ul class="flex flex-col gap-4 mt-8 w-full">
+<li>
+<a class="flex items-center gap-4 text-primary font-bold italic translate-x-2 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="map" data-weight="fill" style="font-variation-settings: 'FILL' 1;">map</span>
+                    Current Trip
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-on-surface-variant font-label uppercase tracking-widest text-xs hover:text-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+                    Logbook
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-on-surface-variant font-label uppercase tracking-widest text-xs hover:text-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+                    Fleet Status
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-on-surface-variant font-label uppercase tracking-widest text-xs hover:text-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+                    Safety
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-on-surface-variant font-label uppercase tracking-widest text-xs hover:text-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-72 flex flex-col min-h-screen">
+<!-- TopNavBar (Mobile) -->
+<header class="bg-surface/80 backdrop-blur-xl text-primary font-headline docked full-width top-0 sticky z-50 flex justify-between items-center px-6 py-4 w-full md:hidden shadow-[0_4px_24px_rgba(25,27,34,0.06)]">
+<div class="text-xl font-headline italic text-primary tracking-tight">Alexandria</div>
+<div class="flex gap-4">
+<button class="text-primary"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-primary"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+</header>
+<!-- TopNavBar (Web) - Re-interpreted as Page Header to avoid conflicting dual-navs based on instructions -->
+<header class="bg-surface/80 backdrop-blur-xl text-primary font-headline top-0 sticky z-30 hidden md:flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto border-b-0 shadow-[0_4px_32px_rgba(25,27,34,0.04)]">
+<div class="flex items-center gap-8">
+<div class="text-2xl font-headline italic text-primary tracking-tight">Alexandria</div>
+<nav class="flex gap-6">
+<a class="text-primary font-medium border-b-2 border-tertiary pb-1 transition-all" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-body hover:text-primary transition-colors duration-300" href="#">Logs</a>
+<a class="text-on-surface-variant font-body hover:text-primary transition-colors duration-300" href="#">Planning</a>
+<a class="text-on-surface-variant font-body hover:text-primary transition-colors duration-300" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex gap-4 items-center">
+<button class="text-primary hover:bg-surface-variant/50 p-2 rounded-full transition-colors duration-300"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-primary hover:bg-surface-variant/50 p-2 rounded-full transition-colors duration-300"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+</header>
+<div class="p-6 md:p-12 max-w-screen-2xl mx-auto w-full flex-1 flex flex-col gap-12">
+<!-- Hero / Narrative Summary -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 pt-8">
+<div class="max-w-3xl">
+<h2 class="font-headline text-4xl md:text-5xl lg:text-6xl text-primary mb-4 leading-tight">State of the Fleet</h2>
+<p class="font-headline italic text-xl md:text-2xl text-on-surface-variant leading-relaxed">
+                        Currently tracking 14 active journeys. The western corridor experiences minor delays due to weather, while eastern routes maintain optimal pacing. Safety metrics remain within the golden standard.
+                    </p>
+</div>
+<div class="shrink-0 relative">
+<!-- Glassmorphic Date Filter -->
+<div class="absolute -top-16 right-0 bg-surface/80 backdrop-blur-xl border border-outline-variant/15 rounded-xl p-2 flex items-center gap-4 shadow-[0_8px_32px_rgba(25,27,34,0.08)] z-10">
+<span class="font-label text-sm text-on-surface-variant pl-2">Filter View:</span>
+<select class="bg-transparent border-none font-label text-sm text-primary focus:ring-0 cursor-pointer outline-none">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+<option>Current Quarter</option>
+</select>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary font-body font-medium px-8 py-4 rounded-xl shadow-[0_8px_24px_rgba(0,54,134,0.2)] hover:shadow-[0_12px_32px_rgba(0,54,134,0.3)] transition-all duration-300 flex items-center gap-3 group">
+<span class="material-symbols-outlined group-hover:rotate-90 transition-transform duration-300" data-icon="add">add</span>
+                        Plan New Trip
+                    </button>
+</div>
+</section>
+<!-- Bento Grid Content -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-4">
+<!-- Recent Trips (Spans 8 cols) -->
+<div class="md:col-span-8 bg-surface-container-low rounded-xl p-8 relative overflow-hidden group">
+<!-- Ambient glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors duration-700"></div>
+<div class="flex justify-between items-center mb-8 relative z-10">
+<h3 class="font-headline text-2xl text-on-surface">Curated Journeys</h3>
+<span class="font-label text-xs text-tertiary bg-tertiary/10 px-3 py-1 rounded-full border border-tertiary/20">Active Archive</span>
+</div>
+<div class="flex flex-col gap-10 relative z-10">
+<!-- Trip Item 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col md:flex-row gap-6 items-start md:items-center relative transition-colors duration-300 hover:bg-surface-bright shadow-[0_4px_24px_rgba(25,27,34,0.02)]">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary rounded-l-lg"></div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Log #8492</span>
+<span class="w-1 h-1 bg-surface-dim rounded-full"></span>
+<span class="font-label text-xs text-tertiary font-medium">In Transit</span>
+</div>
+<h4 class="font-body font-semibold text-lg text-on-surface">Seattle, WA to Denver, CO</h4>
+<p class="font-headline italic text-sm text-on-surface-variant mt-1">Driver maintains excellent pace. Approaching mountainous terrain.</p>
+</div>
+<div class="w-full md:w-48">
+<!-- Contextual Timeline -->
+<div class="flex items-center justify-between relative mb-2">
+<div class="absolute left-0 right-0 top-1/2 h-px bg-surface-dim -translate-y-1/2 z-0"></div>
+<div class="w-2 h-2 rounded-full bg-tertiary z-10 shadow-[0_0_8px_rgba(109,94,0,0.4)]"></div>
+<div class="w-2 h-2 rounded-full bg-tertiary z-10"></div>
+<div class="w-2 h-2 rounded-full bg-surface-container-highest z-10"></div>
+</div>
+<div class="flex justify-between font-label text-[10px] text-on-surface-variant uppercase">
+<span>SEA</span>
+<span>BOI</span>
+<span>DEN</span>
+</div>
+</div>
+</div>
+<!-- Trip Item 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col md:flex-row gap-6 items-start md:items-center relative transition-colors duration-300 hover:bg-surface-bright shadow-[0_4px_24px_rgba(25,27,34,0.02)]">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-surface-variant rounded-l-lg"></div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Log #8491</span>
+<span class="w-1 h-1 bg-surface-dim rounded-full"></span>
+<span class="font-label text-xs text-on-surface-variant font-medium">Scheduled</span>
+</div>
+<h4 class="font-body font-semibold text-lg text-on-surface">Chicago, IL to Atlanta, GA</h4>
+<p class="font-headline italic text-sm text-on-surface-variant mt-1">Pending final dispatch clearance. Weather conditions optimal.</p>
+</div>
+<div class="w-full md:w-48">
+<div class="flex items-center justify-between relative mb-2">
+<div class="absolute left-0 right-0 top-1/2 h-px bg-surface-dim -translate-y-1/2 z-0"></div>
+<div class="w-2 h-2 rounded-full bg-surface-container-highest z-10"></div>
+<div class="w-2 h-2 rounded-full bg-surface-container-highest z-10"></div>
+<div class="w-2 h-2 rounded-full bg-surface-container-highest z-10"></div>
+</div>
+<div class="flex justify-between font-label text-[10px] text-on-surface-variant uppercase">
+<span>ORD</span>
+<span>SDF</span>
+<span>ATL</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Safety & Metrics (Spans 4 cols) -->
+<div class="md:col-span-4 flex flex-col gap-8">
+<!-- Safety Summary Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/15 rounded-xl p-8 shadow-[0_8px_32px_rgba(25,27,34,0.03)] flex-1">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-tertiary" data-icon="shield">shield</span>
+<h3 class="font-headline text-xl text-on-surface">Safety Overview</h3>
+</div>
+<div class="flex flex-col gap-6">
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="font-label text-sm text-on-surface-variant">Fleet Compliance</span>
+<span class="font-headline text-2xl text-primary">99.4%</span>
+</div>
+<div class="w-full h-1 bg-surface-dim rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[99.4%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="font-headline italic text-sm text-on-surface-variant">
+                                    "Zero critical violations recorded in the past 72 hours. HOS logs indicate exemplary rest patterns."
+                                </p>
+</div>
+</div>
+</div>
+<!-- Upcoming Schedules Mini-Card -->
+<div class="bg-primary-container text-on-primary-container rounded-xl p-8 relative overflow-hidden">
+<div class="absolute -right-12 -bottom-12 opacity-10">
+<span class="material-symbols-outlined text-9xl" data-icon="calendar_month">calendar_month</span>
+</div>
+<h3 class="font-headline text-xl text-on-primary mb-4 relative z-10">Upcoming Departures</h3>
+<ul class="flex flex-col gap-4 relative z-10">
+<li class="flex justify-between items-center border-b border-primary/20 pb-2">
+<span class="font-body text-sm">Miami → NY</span>
+<span class="font-label text-xs bg-primary/30 px-2 py-1 rounded text-on-primary">04:00 AM</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="font-body text-sm">Dallas → LA</span>
+<span class="font-label text-xs bg-primary/30 px-2 py-1 rounded text-on-primary">06:30 AM</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

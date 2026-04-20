@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trip Input - Alexandria</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#dbc766",
+                        "inverse-on-surface": "#f0f0f9",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed": "#dae2ff",
+                        "outline": "#737784",
+                        "inverse-primary": "#b1c5ff",
+                        "secondary-container": "#c1d1ff",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-fixed": "#f8e37f",
+                        "on-primary-container": "#b0c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#094cb2",
+                        "background": "#faf8ff",
+                        "secondary": "#4e5d86",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f3f3fc",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#beab4e",
+                        "tertiary": "#6d5e00",
+                        "surface": "#faf8ff",
+                        "on-tertiary-fixed-variant": "#524600",
+                        "on-tertiary-fixed": "#211b00",
+                        "on-secondary-fixed-variant": "#36466d",
+                        "secondary-fixed": "#dae2ff",
+                        "surface-variant": "#e2e2eb",
+                        "secondary-fixed-dim": "#b6c6f4",
+                        "surface-container-highest": "#e2e2eb",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c3c6d5",
+                        "on-error": "#ffffff",
+                        "on-background": "#191b22",
+                        "surface-tint": "#2259bf",
+                        "on-secondary-container": "#495981",
+                        "on-primary-fixed-variant": "#00419e",
+                        "on-surface": "#191b22",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e7e7f1",
+                        "on-secondary-fixed": "#071a3f",
+                        "primary": "#003686",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "surface-container": "#ededf6",
+                        "surface-dim": "#d9d9e2",
+                        "on-surface-variant": "#434653",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#4a3f00",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Public Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .input-ghost {
+            background-color: theme('colors.surface-container-lowest');
+            border: 1px solid rgba(195, 198, 213, 0.15); /* outline-variant at 15% */
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .input-ghost:focus-within {
+            border-color: theme('colors.primary');
+            background-color: theme('colors.surface-bright');
+            box-shadow: none;
+            outline: none;
+        }
+        .gradient-btn {
+            background: linear-gradient(135deg, theme('colors.primary'), theme('colors.primary-container'));
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 sticky z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl no-border bg-slate-100 dark:bg-slate-800 flat no shadows flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto transition-colors duration-300">
+<div class="text-2xl font-serif italic text-blue-900 dark:text-blue-50 tracking-tight">Alexandria</div>
+<div class="hidden md:flex gap-8">
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-4 py-2 rounded" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-4 py-2 rounded" href="#">Logs</a>
+<a class="text-blue-900 dark:text-blue-50 border-b-2 border-amber-600 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-4 py-2 rounded" href="#">Planning</a>
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-4 py-2 rounded" href="#">Archive</a>
+</div>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-200 cursor-pointer hover:bg-slate-200/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-colors duration-300">notifications</span>
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-200 cursor-pointer hover:bg-slate-200/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-colors duration-300">account_circle</span>
+</div>
+</nav>
+<!-- Main Content Grid -->
+<main class="flex-grow grid grid-cols-1 lg:grid-cols-12 max-w-screen-2xl mx-auto w-full relative">
+<!-- Left Side: Form Area -->
+<div class="lg:col-span-7 xl:col-span-6 p-8 lg:p-16 xl:p-24 flex flex-col justify-center">
+<header class="mb-16">
+<h1 class="font-headline text-4xl lg:text-5xl text-on-surface mb-4">New Journey Entry</h1>
+<p class="font-body text-on-surface-variant text-lg max-w-xl">Curate the parameters for the upcoming trip. Precise origins and destinations ensure accurate archival routing.</p>
+</header>
+<form class="space-y-12">
+<!-- Step 1: Location -->
+<section class="relative">
+<div class="absolute -left-12 top-2 hidden lg:block">
+<span class="font-label text-tertiary text-sm tracking-widest uppercase opacity-60">01</span>
+</div>
+<h2 class="font-headline text-2xl text-on-surface mb-8 border-b border-surface-variant pb-4">Routing Parameters</h2>
+<div class="space-y-6">
+<div>
+<label class="block font-label text-sm text-on-surface-variant mb-2 ml-1">Origin Point</label>
+<div class="input-ghost rounded-lg flex items-center px-4 py-3">
+<span class="material-symbols-outlined text-outline mr-3">trip_origin</span>
+<input class="bg-transparent border-none w-full text-on-surface font-body placeholder:text-outline-variant focus:ring-0 p-0" placeholder="Enter facility or coordinates..." type="text"/>
+</div>
+</div>
+<div>
+<label class="block font-label text-sm text-on-surface-variant mb-2 ml-1">Destination Point</label>
+<div class="input-ghost rounded-lg flex items-center px-4 py-3">
+<span class="material-symbols-outlined text-outline mr-3">location_on</span>
+<input class="bg-transparent border-none w-full text-on-surface font-body placeholder:text-outline-variant focus:ring-0 p-0" placeholder="Enter receiving facility..." type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 2: Manifest -->
+<section class="relative">
+<div class="absolute -left-12 top-2 hidden lg:block">
+<span class="font-label text-tertiary text-sm tracking-widest uppercase opacity-60">02</span>
+</div>
+<h2 class="font-headline text-2xl text-on-surface mb-8 border-b border-surface-variant pb-4">Manifest Details</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label text-sm text-on-surface-variant mb-2 ml-1">Assigned Driver</label>
+<div class="input-ghost rounded-lg flex items-center px-4 py-3">
+<span class="material-symbols-outlined text-outline mr-3">person</span>
+<select class="bg-transparent border-none w-full text-on-surface font-body focus:ring-0 p-0 appearance-none">
+<option disabled="" selected="" value="">Select personnel...</option>
+<option>J. Doe - Fleet A</option>
+<option>M. Smith - Fleet B</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block font-label text-sm text-on-surface-variant mb-2 ml-1">Cargo Classification</label>
+<div class="input-ghost rounded-lg flex items-center px-4 py-3">
+<span class="material-symbols-outlined text-outline mr-3">inventory_2</span>
+<select class="bg-transparent border-none w-full text-on-surface font-body focus:ring-0 p-0 appearance-none">
+<option disabled="" selected="" value="">Select type...</option>
+<option>Dry Van - General</option>
+<option>Refrigerated - Perishable</option>
+<option>Flatbed - Oversize</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Area -->
+<div class="pt-8 flex items-center gap-6">
+<button class="gradient-btn text-on-primary font-body font-medium px-8 py-4 rounded-md shadow-[0_8px_32px_-8px_rgba(0,54,134,0.3)] hover:opacity-90 transition-opacity flex items-center gap-3" type="button">
+<span>Generate Route</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="text-primary font-body px-6 py-4 hover:bg-surface-container-low rounded-md transition-colors" type="button">
+                        Save Draft
+                    </button>
+</div>
+</form>
+</div>
+<!-- Right Side: Aesthetic Map Panel -->
+<div class="hidden lg:block lg:col-span-5 xl:col-span-6 relative bg-surface-container-low">
+<div class="absolute inset-0 m-8 rounded-2xl overflow-hidden bg-surface-container-highest opacity-50 mix-blend-multiply" data-alt="muted vintage-style topographic map showing contour lines in soft neutral tones, archival aesthetic, aerial view" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDOzy2EykCb6aUty7qYk8bElb7ZrqwhoOLbUir6f6rhCcxua5jI0KgV7vmA0EL4eNKKTP1WN0YHKj7-n6aJlHCR1F_bC6owsiGb6zVzTmh2EKnFheGFMl6tP-gDzvz3xZAWPvG4uCT_e4xK1LRBrkOKQ0f1bXybqxRNBdTNbsq79ONyxGPlMpu0669MTd-CpXEz2V0XGdpoBpw66YkJ0NCExCeRsoVQwIfjExsExYex69mIb8EQtbr0YSscx6rPwPX-swbMRgRH9vKR'); background-size: cover; background-position: center; filter: grayscale(80%) sepia(20%) opacity(0.6);"></div>
+<!-- Overlay Content on Map -->
+<div class="absolute inset-0 p-16 flex flex-col justify-end pointer-events-none">
+<div class="bg-surface/80 backdrop-blur-xl p-8 rounded-xl border border-surface-variant shadow-[0_32px_64px_-16px_rgba(25,27,34,0.06)] max-w-sm">
+<p class="font-headline italic text-on-surface text-lg mb-2">"Planning is bringing the future into the present so that you can do something about it now."</p>
+<p class="font-label text-xs text-on-surface-variant tracking-wider uppercase">— Curatorial Log, Vol. IV</p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

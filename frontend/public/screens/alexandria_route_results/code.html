@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Route and Map Results - Alexandria</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "tertiary-fixed-dim": "#dbc766",
+                            "inverse-on-surface": "#f0f0f9",
+                            "on-primary-fixed": "#001946",
+                            "primary-fixed": "#dae2ff",
+                            "outline": "#737784",
+                            "inverse-primary": "#b1c5ff",
+                            "secondary-container": "#c1d1ff",
+                            "surface-bright": "#faf8ff",
+                            "tertiary-fixed": "#f8e37f",
+                            "on-primary-container": "#b0c5ff",
+                            "surface-container-lowest": "#ffffff",
+                            "primary-container": "#094cb2",
+                            "background": "#faf8ff",
+                            "secondary": "#4e5d86",
+                            "on-secondary": "#ffffff",
+                            "surface-container-low": "#f3f3fc",
+                            "error-container": "#ffdad6",
+                            "tertiary-container": "#beab4e",
+                            "tertiary": "#6d5e00",
+                            "surface": "#faf8ff",
+                            "on-tertiary-fixed-variant": "#524600",
+                            "on-tertiary-fixed": "#211b00",
+                            "on-secondary-fixed-variant": "#36466d",
+                            "secondary-fixed": "#dae2ff",
+                            "surface-variant": "#e2e2eb",
+                            "secondary-fixed-dim": "#b6c6f4",
+                            "surface-container-highest": "#e2e2eb",
+                            "on-error-container": "#93000a",
+                            "outline-variant": "#c3c6d5",
+                            "on-error": "#ffffff",
+                            "on-background": "#191b22",
+                            "surface-tint": "#2259bf",
+                            "on-secondary-container": "#495981",
+                            "on-primary-fixed-variant": "#00419e",
+                            "on-surface": "#191b22",
+                            "inverse-surface": "#2e3037",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-high": "#e7e7f1",
+                            "on-secondary-fixed": "#071a3f",
+                            "primary": "#003686",
+                            "primary-fixed-dim": "#b1c5ff",
+                            "surface-container": "#ededf6",
+                            "surface-dim": "#d9d9e2",
+                            "on-surface-variant": "#434653",
+                            "error": "#ba1a1a",
+                            "on-tertiary-container": "#4a3f00",
+                            "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                            "headline": ["Noto Serif"],
+                            "body": ["Inter"],
+                            "label": ["Public Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ghost-border {
+            border: 1px solid rgba(195, 198, 213, 0.15); /* outline-variant at 15% opacity */
+        }
+        .btn-primary-gradient {
+            background: linear-gradient(to right, #003686, #094cb2); /* primary to primary_container */
+        }
+        .glass-nav {
+            background-color: rgba(250, 248, 255, 0.8); /* surface at 80% */
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<nav class="docked full-width top-0 sticky z-50 no-border bg-slate-100 dark:bg-slate-800 flat no shadows bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+<div class="flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed text-3xl" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="text-2xl font-serif italic text-blue-900 dark:text-blue-50 tracking-tight">Alexandria</span>
+</div>
+<!-- Navigation Links -->
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 Standard decelerate easing 300ms px-3 py-2 rounded-DEFAULT" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 Standard decelerate easing 300ms px-3 py-2 rounded-DEFAULT" href="#">Logs</a>
+<a class="text-blue-900 dark:text-blue-50 border-b-2 border-amber-600 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 Standard decelerate easing 300ms px-3 py-2" href="#">Planning</a>
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 Standard decelerate easing 300ms px-3 py-2 rounded-DEFAULT" href="#">Archive</a>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-4 text-blue-900 dark:text-blue-200">
+<button class="p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-colors duration-300 Standard decelerate easing 300ms">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-colors duration-300 Standard decelerate easing 300ms">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area: Map and Itinerary -->
+<main class="flex-1 flex flex-col md:flex-row w-full max-w-screen-2xl mx-auto overflow-hidden">
+<!-- Itinerary Side Panel -->
+<aside class="w-full md:w-96 bg-surface-container-lowest flex flex-col shrink-0 overflow-y-auto" style="box-shadow: 1px 0 0 rgba(195, 198, 213, 0.15);">
+<div class="p-8 pb-4">
+<h1 class="font-headline text-3xl text-on-surface mb-2">Current Trip</h1>
+<p class="font-headline italic text-on-surface-variant">Curated route for optimal efficiency.</p>
+</div>
+<!-- Actions -->
+<div class="px-8 py-4 flex gap-4">
+<button class="btn-primary-gradient text-on-primary font-body font-medium px-4 py-2 rounded-DEFAULT flex-1 text-center transition-opacity hover:opacity-90">
+                    Review Logs
+                </button>
+<button class="bg-secondary-container text-on-secondary-container font-body font-medium px-4 py-2 rounded-DEFAULT flex-1 text-center transition-opacity hover:opacity-90">
+                    Modify Route
+                </button>
+</div>
+<!-- Trip Planner Timeline -->
+<div class="flex-1 px-8 py-6">
+<!-- Stop 1: Origin -->
+<div class="relative pl-8 pb-12">
+<!-- Timeline line -->
+<div class="absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-dim"></div>
+<!-- Timeline dot -->
+<div class="absolute left-1 top-1 w-6 h-6 rounded-full bg-surface border-2 border-tertiary flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+</div>
+<div class="bg-surface-container-lowest p-4 ghost-border rounded-lg relative overflow-hidden group hover:bg-surface-container-low transition-colors duration-300">
+<!-- Left Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary group-hover:w-2 transition-all duration-300"></div>
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-body font-semibold text-on-surface text-lg">Origin</h3>
+<span class="font-label text-sm text-on-surface-variant">08:00 AM</span>
+</div>
+<p class="font-body text-on-surface-variant mb-2">Seattle Distribution Center</p>
+<div class="flex gap-2 items-center text-xs font-label text-outline">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span>
+<span>Departure</span>
+</div>
+</div>
+</div>
+<!-- Stop 2: Rest Stop -->
+<div class="relative pl-8 pb-12">
+<!-- Timeline line -->
+<div class="absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-dim"></div>
+<!-- Timeline dot -->
+<div class="absolute left-1 top-1 w-6 h-6 rounded-full bg-surface border-2 border-surface-dim flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">local_cafe</span>
+</div>
+<div class="bg-surface-container-lowest p-4 ghost-border rounded-lg hover:bg-surface-container-low transition-colors duration-300">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-body font-medium text-on-surface text-lg">Rest Area</h3>
+<span class="font-label text-sm text-on-surface-variant">11:30 AM</span>
+</div>
+<p class="font-body text-on-surface-variant mb-2">I-90 Eastbound Mile 142</p>
+<div class="flex gap-2 items-center text-xs font-label text-outline">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>30 min duration</span>
+</div>
+</div>
+</div>
+<!-- Stop 3: Fuel -->
+<div class="relative pl-8 pb-12">
+<!-- Timeline line -->
+<div class="absolute left-[11px] top-6 bottom-0 w-[2px] bg-surface-dim"></div>
+<!-- Timeline dot -->
+<div class="absolute left-1 top-1 w-6 h-6 rounded-full bg-surface border-2 border-surface-dim flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">local_gas_station</span>
+</div>
+<div class="bg-surface-container-lowest p-4 ghost-border rounded-lg hover:bg-surface-container-low transition-colors duration-300">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-body font-medium text-on-surface text-lg">Fuel Stop</h3>
+<span class="font-label text-sm text-on-surface-variant">02:15 PM</span>
+</div>
+<p class="font-body text-on-surface-variant mb-2">Spokane Travel Plaza</p>
+<div class="flex gap-2 items-center text-xs font-label text-outline">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>45 min duration</span>
+</div>
+</div>
+</div>
+<!-- Stop 4: Destination -->
+<div class="relative pl-8">
+<!-- Timeline dot -->
+<div class="absolute left-1 top-1 w-6 h-6 rounded-full bg-surface border-2 border-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="bg-surface-container-lowest p-4 ghost-border rounded-lg hover:bg-surface-container-low transition-colors duration-300">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-body font-semibold text-on-surface text-lg">Destination</h3>
+<span class="font-label text-sm text-on-surface-variant">06:45 PM</span>
+</div>
+<p class="font-body text-on-surface-variant mb-2">Missoula Freight Hub</p>
+<div class="flex gap-2 items-center text-xs font-label text-outline">
+<span class="material-symbols-outlined text-[16px]">flag</span>
+<span>Arrival</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Map Canvas -->
+<section class="flex-1 relative bg-surface-container-high h-[600px] md:h-auto">
+<!-- Simulated Map Background -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="High fidelity, muted minimalist map showing a route path across a terrain, editorial calm style, soft desaturated colors" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzbTlB1edrvK9IUdBACnVHsIAXvstFxfm_l5kSzJA60RL8gxlrtxIZCCErVNgeu-s90yjI-QUcGAaYGw0kxOc344sKprZQ92EbBKlRgXVIcceAzIg_p44vMyU-ieabIPz0OmIVjLZkbZMU-0vX-Rpe1BQ_VHft4ujB77zRQ0d71dFCaeVrLHihqh5Uy01Aptv1124CnyvW3REtgRCfvPTCC6mTDdM0KuG_Wd_aw86XHWeQSzuSpkjsw8H_cL6kmltfDkJwwuUuXoQn'); opacity: 0.6;"></div>
+<!-- Map Overlay UI Elements -->
+<div class="absolute top-6 left-6 right-6 flex justify-between items-start pointer-events-none">
+<!-- Trip Summary Pill -->
+<div class="bg-surface-container-lowest/90 backdrop-blur-md px-6 py-3 rounded-full ghost-border pointer-events-auto flex gap-6 items-center shadow-[0_8px_32px_rgba(25,27,34,0.06)]">
+<div class="flex flex-col">
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Distance</span>
+<span class="font-body font-medium text-on-surface">482 mi</span>
+</div>
+<div class="w-px h-8 bg-surface-variant"></div>
+<div class="flex flex-col">
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Est. Time</span>
+<span class="font-body font-medium text-on-surface">9h 15m</span>
+</div>
+<div class="w-px h-8 bg-surface-variant"></div>
+<div class="flex flex-col">
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-wider">HOS Status</span>
+<span class="font-body font-medium text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Compliant
+                        </span>
+</div>
+</div>
+<!-- Map Controls -->
+<div class="flex flex-col gap-2 pointer-events-auto">
+<button class="w-10 h-10 bg-surface-container-lowest/90 backdrop-blur-md rounded-full flex items-center justify-center ghost-border text-on-surface hover:bg-surface-container-lowest shadow-[0_8px_32px_rgba(25,27,34,0.06)] transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 bg-surface-container-lowest/90 backdrop-blur-md rounded-full flex items-center justify-center ghost-border text-on-surface hover:bg-surface-container-lowest shadow-[0_8px_32px_rgba(25,27,34,0.06)] transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="w-10 h-10 bg-surface-container-lowest/90 backdrop-blur-md rounded-full flex items-center justify-center ghost-border text-on-surface hover:bg-surface-container-lowest shadow-[0_8px_32px_rgba(25,27,34,0.06)] mt-4 transition-colors">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+</div>
+<!-- Simulated Route Line (SVG overlay) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none">
+<path class="opacity-80" d="M 20% 80% Q 40% 60% 50% 50% T 80% 20%" fill="none" stroke="#003686" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+<!-- Origin Marker -->
+<circle cx="20%" cy="80%" fill="#003686" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<!-- Rest Stop Marker -->
+<circle cx="45%" cy="55%" fill="#faf8ff" r="5" stroke="#737784" stroke-width="2"></circle>
+<!-- Fuel Marker -->
+<circle cx="65%" cy="35%" fill="#faf8ff" r="5" stroke="#737784" stroke-width="2"></circle>
+<!-- Destination Marker -->
+<circle cx="80%" cy="20%" fill="#ffffff" r="8" stroke="#6d5e00" stroke-width="3"></circle>
+<circle cx="80%" cy="20%" fill="#6d5e00" r="3"></circle>
+</svg>
+</section>
+</main>
+</body></html>

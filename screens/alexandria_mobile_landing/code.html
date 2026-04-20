@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alexandria - The Digital Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#dbc766",
+                        "inverse-on-surface": "#f0f0f9",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed": "#dae2ff",
+                        "outline": "#737784",
+                        "inverse-primary": "#b1c5ff",
+                        "secondary-container": "#c1d1ff",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-fixed": "#f8e37f",
+                        "on-primary-container": "#b0c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#094cb2",
+                        "background": "#faf8ff",
+                        "secondary": "#4e5d86",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f3f3fc",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#beab4e",
+                        "tertiary": "#6d5e00",
+                        "surface": "#faf8ff",
+                        "on-tertiary-fixed-variant": "#524600",
+                        "on-tertiary-fixed": "#211b00",
+                        "on-secondary-fixed-variant": "#36466d",
+                        "secondary-fixed": "#dae2ff",
+                        "surface-variant": "#e2e2eb",
+                        "secondary-fixed-dim": "#b6c6f4",
+                        "surface-container-highest": "#e2e2eb",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c3c6d5",
+                        "on-error": "#ffffff",
+                        "on-background": "#191b22",
+                        "surface-tint": "#2259bf",
+                        "on-secondary-container": "#495981",
+                        "on-primary-fixed-variant": "#00419e",
+                        "on-surface": "#191b22",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e7e7f1",
+                        "on-secondary-fixed": "#071a3f",
+                        "primary": "#003686",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "surface-container": "#ededf6",
+                        "surface-dim": "#d9d9e2",
+                        "on-surface-variant": "#434653",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#4a3f00",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Public Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.surface'); color: theme('colors.on-surface'); }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'Public Sans', sans-serif; }
+        .text-gradient { background: linear-gradient(to right, theme('colors.primary'), theme('colors.primary-container')); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-gradient-primary { background: linear-gradient(135deg, theme('colors.primary'), theme('colors.primary-container')); }
+        .glass-nav { background: rgba(250, 248, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .ghost-border { border: 1px solid rgba(195, 198, 213, 0.15); }
+        .trip-leg-border { border-left: 4px solid theme('colors.tertiary'); }
+        .shadow-ambient { box-shadow: 0 8px 32px rgba(25, 27, 34, 0.06); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased flex flex-col min-h-screen">
+<!-- TopNav - Mobile Focus -->
+<header class="glass-nav docked full-width top-0 sticky z-50 flex justify-between items-center px-6 py-4 w-full">
+<div class="text-2xl font-serif italic text-primary tracking-tight">Alexandria</div>
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden ghost-border">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional driver with a slight smile, warm lighting, muted background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTYP8MDYrs2atQn1Kdi9WkMkzXdRLa7A7H4BuVpPOoyKLh4bOObReYltDwsdth5IXFKS3tLzYqe1NqMdXVV0M8ZtIOEaNsoNurVRkkOGVCGtiSa6-U7DM7XdcEwiEO0k-W0IxPfOYKM1IEN637TXhJIwrwDV43N1M05ZvLI1NXVPW8UzEXaDQ-dhZDooKqt_ul1RQXj0xThzbt0ALQZIxwhVlEx4j1ppYt29fMYsWhr9PhO2lwvYjmOsi41TPUoMn_1AMvY9lBZVxT"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col gap-8 px-6 py-8 pb-24">
+<!-- Hero Section -->
+<section class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<span class="font-mono text-sm text-on-surface-variant uppercase tracking-widest">Current Status</span>
+<h1 class="font-serif text-4xl text-on-surface leading-tight">Good morning,<br/>Curator.</h1>
+<p class="font-sans text-base text-on-surface-variant max-w-md">Your fleet is operating nominally. There are 3 active journeys requiring your attention.</p>
+</div>
+<button class="bg-gradient-primary text-on-primary font-sans font-medium rounded-lg px-6 py-4 flex justify-between items-center shadow-ambient hover:opacity-90 transition-opacity">
+<span>Plan New Trip</span>
+<span class="material-symbols-outlined">add_road</span>
+</button>
+</section>
+<!-- Active Journeys -->
+<section class="flex flex-col gap-6 pt-4 border-t border-surface-dim">
+<div class="flex justify-between items-end">
+<h2 class="font-serif text-2xl text-on-surface">Active Journeys</h2>
+<span class="font-mono text-xs text-primary font-medium cursor-pointer">View All Archive</span>
+</div>
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-ambient flex flex-col gap-5 relative overflow-hidden ghost-border trip-leg-border">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-sans font-semibold text-lg text-on-surface">Route 44 - Alpha</span>
+<span class="font-serif italic text-sm text-on-surface-variant">Seattle, WA to Portland, OR</span>
+</div>
+<div class="bg-tertiary-container text-on-tertiary-container font-mono text-xs px-2 py-1 rounded">In Progress</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-sm text-on-surface-variant">Driver: James H.</span>
+<span class="font-mono text-sm text-on-surface-variant">ETA: 14:30 PST</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low rounded-xl p-5 flex flex-col gap-5 relative overflow-hidden ghost-border">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-sans font-semibold text-lg text-on-surface">Route 89 - Beta</span>
+<span class="font-serif italic text-sm text-on-surface-variant">Las Vegas, NV to Phoenix, AZ</span>
+</div>
+<div class="bg-surface-dim text-on-surface-variant font-mono text-xs px-2 py-1 rounded">Scheduled</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-sm text-on-surface-variant">Driver: Sarah M.</span>
+<span class="font-mono text-sm text-on-surface-variant">Departs: Tomorrow 06:00</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar (Mobile specific) -->
+<nav class="glass-nav fixed bottom-0 w-full border-t border-surface-dim px-6 py-4 z-50 block md:hidden">
+<ul class="flex justify-between items-center">
+<li class="flex flex-col items-center gap-1 cursor-pointer text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-mono text-[10px] uppercase tracking-widest font-bold">Dashboard</span>
+</li>
+<li class="flex flex-col items-center gap-1 cursor-pointer text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history_edu</span>
+<span class="font-mono text-[10px] uppercase tracking-widest">Logs</span>
+</li>
+<li class="flex flex-col items-center gap-1 cursor-pointer text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">map</span>
+<span class="font-mono text-[10px] uppercase tracking-widest">Planning</span>
+</li>
+<li class="flex flex-col items-center gap-1 cursor-pointer text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="font-mono text-[10px] uppercase tracking-widest">Archive</span>
+</li>
+</ul>
+</nav>
+</body></html>

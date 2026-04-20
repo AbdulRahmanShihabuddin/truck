@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alexandria - ELD Log Viewer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400..700;1,400..700&amp;family=Inter:wght@400..700&amp;family=Public+Sans:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#dbc766",
+                    "inverse-on-surface": "#f0f0f9",
+                    "on-primary-fixed": "#001946",
+                    "primary-fixed": "#dae2ff",
+                    "outline": "#737784",
+                    "inverse-primary": "#b1c5ff",
+                    "secondary-container": "#c1d1ff",
+                    "surface-bright": "#faf8ff",
+                    "tertiary-fixed": "#f8e37f",
+                    "on-primary-container": "#b0c5ff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#094cb2",
+                    "background": "#faf8ff",
+                    "secondary": "#4e5d86",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f3f3fc",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#beab4e",
+                    "tertiary": "#6d5e00",
+                    "surface": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#524600",
+                    "on-tertiary-fixed": "#211b00",
+                    "on-secondary-fixed-variant": "#36466d",
+                    "secondary-fixed": "#dae2ff",
+                    "surface-variant": "#e2e2eb",
+                    "secondary-fixed-dim": "#b6c6f4",
+                    "surface-container-highest": "#e2e2eb",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c3c6d5",
+                    "on-error": "#ffffff",
+                    "on-background": "#191b22",
+                    "surface-tint": "#2259bf",
+                    "on-secondary-container": "#495981",
+                    "on-primary-fixed-variant": "#00419e",
+                    "on-surface": "#191b22",
+                    "inverse-surface": "#2e3037",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e7e7f1",
+                    "on-secondary-fixed": "#071a3f",
+                    "primary": "#003686",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "surface-container": "#ededf6",
+                    "surface-dim": "#d9d9e2",
+                    "on-surface-variant": "#434653",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#4a3f00",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Noto Serif"
+                    ],
+                    "body": [
+                            "Inter"
+                    ],
+                    "label": [
+                            "Public Sans"
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body antialiased min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Mobile Hidden, Web Flex) -->
+<nav class="hidden md:flex flex-col gap-8 p-8 border-r border-slate-200/10 h-screen w-72 left-0 top-0 fixed bg-slate-100 dark:bg-slate-950 z-40 surface-dim">
+<div class="mb-8">
+<h1 class="font-serif italic text-xl text-amber-700 dark:text-amber-500 font-headline">The Curator</h1>
+<p class="text-xs text-slate-500 font-label tracking-widest mt-1">Fleet Intelligence</p>
+</div>
+<ul class="flex flex-col gap-6 w-full">
+<li>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 font-sans tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 300ms ease-in-out font-label uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span>Current Trip</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-blue-900 dark:text-blue-50 font-bold italic translate-x-2 transition-transform 300ms ease-in-out font-headline text-lg" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Logbook</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 font-sans tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 300ms ease-in-out font-label uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span>Fleet Status</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 font-sans tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 300ms ease-in-out font-label uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span>Safety</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 font-sans tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 300ms ease-in-out font-label uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Canvas Content area -->
+<main class="flex-1 md:ml-72 flex flex-col min-h-screen">
+<!-- TopNavBar (Web) -->
+<header class="docked full-width top-0 sticky z-50 no-border bg-slate-100 dark:bg-slate-800 flat no shadows hidden md:block">
+<div class="flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto">
+<div class="text-2xl font-serif italic text-blue-900 dark:text-blue-50 tracking-tight font-headline">Alexandria</div>
+<nav>
+<ul class="flex gap-8 items-center">
+<li><a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 font-body" href="#">Dashboard</a></li>
+<li><a class="text-blue-900 dark:text-blue-50 border-b-2 border-amber-600 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 font-body" href="#">Logs</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 font-body" href="#">Planning</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 font-body" href="#">Archive</a></li>
+</ul>
+</nav>
+<div class="flex gap-4 items-center text-blue-900 dark:text-blue-200">
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-colors duration-300"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-colors duration-300"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 md:p-12 lg:p-16 max-w-7xl mx-auto w-full flex-1">
+<header class="mb-12 flex justify-between items-end">
+<div>
+<h2 class="text-display-sm font-headline text-on-surface mb-2">Log History</h2>
+<p class="text-body-lg text-on-surface-variant font-body">Review detailed hours of service and compliance records.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 rounded-md text-primary font-body font-medium hover:bg-surface-container-low transition-colors duration-300 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="print">print</span>
+                        Print Log
+                    </button>
+<button class="px-6 py-3 rounded-md bg-gradient-to-r from-primary to-primary-container text-on-primary font-body font-medium shadow-[0_4px_14px_0_rgba(0,54,134,0.39)] hover:shadow-[0_6px_20px_rgba(0,54,134,0.23)] hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2">
+                        View Full Detail
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Calendar/List Summary -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Date Selector -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/15 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+<h3 class="text-title-md font-body text-on-surface mb-4">Select Date</h3>
+<div class="grid grid-cols-7 gap-2 text-center text-label-sm font-label text-on-surface-variant mb-2">
+<div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+</div>
+<div class="grid grid-cols-7 gap-2 text-center text-body-sm font-body">
+<div class="text-outline">28</div><div class="text-outline">29</div><div class="text-outline">30</div><div class="text-outline">31</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">1</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">2</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">3</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">4</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">5</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">6</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">7</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">8</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">9</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">10</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">11</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer relative">12
+                                <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-tertiary rounded-full"></span>
+</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer relative">13
+                                <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-tertiary rounded-full"></span>
+</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">14</div>
+<div class="p-2 bg-primary-container text-on-primary-container rounded cursor-pointer font-bold shadow-[0_2px_8px_rgba(9,76,178,0.25)]">15</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">16</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">17</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">18</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">19</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">20</div>
+<div class="p-2 hover:bg-surface-container-low rounded cursor-pointer">21</div>
+</div>
+</div>
+<!-- HOS Summary -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/15 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+<h3 class="text-title-md font-body text-on-surface mb-6 border-b border-surface-variant pb-4">Cycle Summary</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-label-sm font-label text-on-surface-variant mb-1">
+<span>Driving Available</span>
+<span>05:23</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[45%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm font-label text-on-surface-variant mb-1">
+<span>Shift Remaining</span>
+<span>08:45</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[62%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-sm font-label text-on-surface-variant mb-1">
+<span>Cycle Available</span>
+<span>42:15</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[70%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Log Details Grid -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Daily Header -->
+<div class="flex justify-between items-center bg-surface-container-low p-6 rounded-xl border border-outline-variant/15">
+<div>
+<h2 class="text-headline-md font-headline text-on-surface">Thursday, Oct 15</h2>
+<p class="text-label-md font-label text-on-surface-variant mt-1">Vehicle: T-492 • Co-Driver: None</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-full border border-tertiary/20 shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="check_circle">check_circle</span>
+<span class="text-label-sm font-label text-tertiary font-medium">Compliant</span>
+</div>
+</div>
+<!-- Log Events List -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+<!-- Timeline Graphic Header -->
+<div class="p-6 border-b border-surface-variant bg-surface-bright">
+<div class="relative h-16 w-full border border-outline-variant/30 bg-surface-container-highest">
+<!-- Placeholder for ELD Graph -->
+<div class="absolute inset-0 flex flex-col justify-between py-1 text-[10px] font-label text-on-surface-variant pl-2">
+<div>Off Duty</div>
+<div>Sleeper</div>
+<div>Driving</div>
+<div>On Duty</div>
+</div>
+<!-- Mock Graph Lines -->
+<div class="absolute left-12 top-[10%] w-[20%] h-0.5 bg-on-surface"></div>
+<div class="absolute left-[20%] top-[10%] h-[80%] w-0.5 bg-on-surface"></div>
+<div class="absolute left-[20%] top-[90%] w-[30%] h-0.5 bg-on-surface"></div>
+<div class="absolute left-[50%] top-[90%] h-[40%] w-0.5 bg-on-surface -translate-y-1/2"></div>
+<div class="absolute left-[50%] top-[50%] w-[10%] h-0.5 bg-on-surface"></div>
+</div>
+<div class="flex justify-between text-label-sm font-label text-outline mt-2">
+<span>M</span><span>N</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>N</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>M</span>
+</div>
+</div>
+<!-- Event Items -->
+<div class="flex flex-col">
+<!-- Event 1: Off Duty -->
+<div class="flex items-stretch group hover:bg-surface-container-low transition-colors duration-300">
+<div class="w-24 p-4 border-r border-surface-variant flex flex-col justify-center items-end text-label-md font-label text-on-surface-variant">
+<span>00:00</span>
+</div>
+<div class="flex-1 p-4 flex justify-between items-center">
+<div>
+<h4 class="text-title-md font-body text-on-surface flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-outline"></span>
+                                            Off Duty
+                                        </h4>
+<p class="text-label-sm font-label text-on-surface-variant mt-1">Status Change</p>
+</div>
+<div class="text-right">
+<span class="text-label-md font-label text-on-surface">06:15</span>
+<p class="text-[10px] font-label text-outline uppercase tracking-wider mt-1">Duration</p>
+</div>
+</div>
+</div>
+<!-- Event 2: Pre-Trip Inspection -->
+<div class="flex items-stretch group hover:bg-surface-container-low transition-colors duration-300 bg-surface-dim/20 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="w-24 p-4 border-r border-surface-variant flex flex-col justify-center items-end text-label-md font-label text-on-surface">
+<span>06:15</span>
+</div>
+<div class="flex-1 p-4 flex justify-between items-center">
+<div>
+<h4 class="text-title-md font-body text-on-surface flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+                                            On Duty
+                                        </h4>
+<p class="text-label-sm font-label text-on-surface-variant mt-1">Pre-Trip Inspection • Memphis, TN</p>
+</div>
+<div class="text-right">
+<span class="text-label-md font-label text-on-surface">00:30</span>
+<p class="text-[10px] font-label text-outline uppercase tracking-wider mt-1">Duration</p>
+</div>
+</div>
+</div>
+<!-- Event 3: Driving -->
+<div class="flex items-stretch group hover:bg-surface-container-low transition-colors duration-300">
+<div class="w-24 p-4 border-r border-surface-variant flex flex-col justify-center items-end text-label-md font-label text-on-surface-variant">
+<span>06:45</span>
+</div>
+<div class="flex-1 p-4 flex justify-between items-center">
+<div>
+<h4 class="text-title-md font-body text-on-surface flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+                                            Driving
+                                        </h4>
+<p class="text-label-sm font-label text-on-surface-variant mt-1">In Transit • I-40 East</p>
+</div>
+<div class="text-right">
+<span class="text-label-md font-label text-on-surface">04:20</span>
+<p class="text-[10px] font-label text-outline uppercase tracking-wider mt-1">Duration</p>
+</div>
+</div>
+</div>
+<!-- Event 4: Break -->
+<div class="flex items-stretch group hover:bg-surface-container-low transition-colors duration-300">
+<div class="w-24 p-4 border-r border-surface-variant flex flex-col justify-center items-end text-label-md font-label text-on-surface-variant">
+<span>11:05</span>
+</div>
+<div class="flex-1 p-4 flex justify-between items-center">
+<div>
+<h4 class="text-title-md font-body text-on-surface flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-outline"></span>
+                                            Off Duty
+                                        </h4>
+<p class="text-label-sm font-label text-on-surface-variant mt-1">30-Minute Rest Break • Nashville, TN</p>
+</div>
+<div class="text-right">
+<span class="text-label-md font-label text-on-surface">00:45</span>
+<p class="text-[10px] font-label text-outline uppercase tracking-wider mt-1">Duration</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

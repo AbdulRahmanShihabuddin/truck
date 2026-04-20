@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alexandria - Daily Log Sheet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed-dim": "#dbc766",
+                        "inverse-on-surface": "#f0f0f9",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed": "#dae2ff",
+                        "outline": "#737784",
+                        "inverse-primary": "#b1c5ff",
+                        "secondary-container": "#c1d1ff",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-fixed": "#f8e37f",
+                        "on-primary-container": "#b0c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#094cb2",
+                        "background": "#faf8ff",
+                        "secondary": "#4e5d86",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f3f3fc",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#beab4e",
+                        "tertiary": "#6d5e00",
+                        "surface": "#faf8ff",
+                        "on-tertiary-fixed-variant": "#524600",
+                        "on-tertiary-fixed": "#211b00",
+                        "on-secondary-fixed-variant": "#36466d",
+                        "secondary-fixed": "#dae2ff",
+                        "surface-variant": "#e2e2eb",
+                        "secondary-fixed-dim": "#b6c6f4",
+                        "surface-container-highest": "#e2e2eb",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c3c6d5",
+                        "on-error": "#ffffff",
+                        "on-background": "#191b22",
+                        "surface-tint": "#2259bf",
+                        "on-secondary-container": "#495981",
+                        "on-primary-fixed-variant": "#00419e",
+                        "on-surface": "#191b22",
+                        "inverse-surface": "#2e3037",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e7e7f1",
+                        "on-secondary-fixed": "#071a3f",
+                        "primary": "#003686",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "surface-container": "#ededf6",
+                        "surface-dim": "#d9d9e2",
+                        "on-surface-variant": "#434653",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#4a3f00",
+                        "on-primary": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Noto Serif', serif; }
+        .font-label { font-family: 'Public Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="docked full-width top-0 sticky z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl no-border bg-slate-100 dark:bg-slate-800 flat no shadows text-blue-900 dark:text-blue-200 font-serif text-blue-900 dark:text-blue-100 antialiased Standard decelerate easing 300ms">
+<div class="flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-serif italic text-blue-900 dark:text-blue-50 tracking-tight">Alexandria</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-3 py-1 rounded" href="#">Dashboard</a>
+<a class="text-blue-900 dark:text-blue-50 border-b-2 border-amber-600 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-3 py-1" href="#">Logs</a>
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-3 py-1 rounded" href="#">Planning</a>
+<a class="text-slate-500 dark:text-slate-400 font-normal hover:text-blue-700 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-300 px-3 py-1 rounded" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-primary hover:bg-slate-200/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-primary hover:bg-slate-200/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-screen-2xl mx-auto w-full">
+<!-- SideNavBar (Hidden as Logs is active, but keeping structure for rules) -->
+<aside class="hidden md:flex h-screen w-72 left-0 top-0 fixed bg-slate-100 dark:bg-slate-950 text-blue-900 dark:text-blue-300 font-serif text-lg text-blue-900 dark:text-blue-50 tonal shift using surface-dim flat no shadows 300ms ease-in-out flex flex-col gap-8 p-8 border-r border-slate-200/10 z-40 pt-32">
+<div>
+<h2 class="font-serif italic text-xl text-amber-700 dark:text-amber-500 mb-1">The Curator</h2>
+<p class="text-sm text-slate-500 font-sans tracking-widest uppercase">Fleet Intelligence</p>
+</div>
+<nav class="flex flex-col gap-4">
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 font-sans uppercase tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-800 transition-colors">map</span>
+                    Current Trip
+                </a>
+<a class="flex items-center gap-3 text-blue-900 dark:text-blue-50 font-bold italic translate-x-2 transition-transform group" href="#">
+<span class="material-symbols-outlined text-blue-900">history_edu</span>
+                    Logbook
+                </a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 font-sans uppercase tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-800 transition-colors">local_shipping</span>
+                    Fleet Status
+                </a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 font-sans uppercase tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-800 transition-colors">verified_user</span>
+                    Safety
+                </a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 font-sans uppercase tracking-widest text-xs hover:text-blue-800 dark:hover:text-blue-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-blue-800 transition-colors">settings</span>
+                    Settings
+                </a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 px-8 py-12 md:ml-72 bg-surface">
+<!-- Header Section -->
+<div class="mb-12 flex justify-between items-end">
+<div class="w-2/3">
+<p class="font-label text-sm text-tertiary mb-2 uppercase tracking-widest">Daily Record of Duty Status</p>
+<h1 class="font-headline text-4xl text-on-surface mb-4">October 24, 2023</h1>
+<p class="font-body text-on-surface-variant text-lg">Driver: John Doe • Vehicle: Unit 402 • Co-Driver: None</p>
+</div>
+<div class="flex gap-4 items-center">
+<button class="font-body text-primary hover:underline px-4 py-2 transition-all">Add Remark</button>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary font-body font-medium px-6 py-3 rounded-md hover:opacity-90 transition-opacity shadow-[0_4px_14px_0_rgba(0,54,134,0.39)]">Verify Log</button>
+</div>
+</div>
+<!-- The Grid Section (High-End Archival Look) -->
+<div class="bg-surface-container-lowest rounded-xl p-8 mb-12 relative overflow-hidden ring-1 ring-outline-variant/15">
+<h2 class="font-headline text-2xl text-on-surface mb-6 border-b border-surface-container pb-4">24-Hour Duty Status</h2>
+<!-- Simplified Graph Representation -->
+<div class="relative py-8">
+<!-- Y Axis Labels -->
+<div class="absolute left-0 top-8 bottom-8 flex flex-col justify-between font-label text-xs text-on-surface-variant w-16 text-right pr-4">
+<span>OFF</span>
+<span>SB</span>
+<span>D</span>
+<span>ON</span>
+</div>
+<!-- Graph Area -->
+<div class="ml-16 border-l border-b border-surface-container relative h-48">
+<!-- X Axis Labels (Hours) -->
+<div class="absolute -bottom-6 left-0 right-0 flex justify-between font-label text-xs text-on-surface-variant px-1">
+<span>M</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>N</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>M</span>
+</div>
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="w-full border-t border-surface-dim"></div>
+<div class="w-full border-t border-surface-dim"></div>
+<div class="w-full border-t border-surface-dim"></div>
+<div class="w-full border-t border-surface-dim"></div>
+</div>
+<div class="absolute inset-0 flex justify-between pointer-events-none opacity-20">
+<!-- 24 vertical lines -->
+<div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div><div class="h-full border-l border-surface-dim"></div>
+</div>
+<!-- The Graph Line (Conceptual) -->
+<svg class="absolute inset-0 h-full w-full" preserveaspectratio="none">
+<polyline fill="none" points="0,0 12.5%,0 12.5%,100% 25%,100% 25%,66% 50%,66% 50%,100% 75%,100% 75%,33% 100%,33%" stroke="#003686" stroke-linejoin="miter" stroke-width="3"></polyline>
+</svg>
+</div>
+</div>
+</div>
+<!-- Detailed Event Logs -->
+<div class="bg-surface-container-low rounded-xl p-8 ring-1 ring-outline-variant/15">
+<h3 class="font-headline text-xl text-on-surface mb-6 border-b border-surface-dim pb-4">Event Narrative</h3>
+<div class="space-y-8">
+<!-- Event 1 -->
+<div class="flex gap-6 group hover:bg-surface-container-lowest p-4 -m-4 rounded-lg transition-colors duration-300">
+<div class="w-24 font-label text-sm text-on-surface-variant flex-shrink-0 pt-1">00:00</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="bg-surface-dim text-on-surface text-xs px-2 py-0.5 rounded font-label uppercase tracking-wide">Off Duty</span>
+<h4 class="font-body font-medium text-on-surface">Rest Break</h4>
+</div>
+<p class="font-body text-sm text-on-surface-variant">Chicago, IL • 41.8781° N, 87.6298° W</p>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="flex gap-6 group hover:bg-surface-container-lowest p-4 -m-4 rounded-lg transition-colors duration-300 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-24 font-label text-sm text-on-surface-variant flex-shrink-0 pt-1">06:00</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-label uppercase tracking-wide">Driving</span>
+<h4 class="font-body font-medium text-on-surface">Departed Terminal</h4>
+</div>
+<p class="font-body text-sm text-on-surface-variant mb-2">Heading East on I-90</p>
+<div class="flex items-center gap-2 text-xs text-tertiary font-label">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Gary, IN
+                            </div>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="flex gap-6 group hover:bg-surface-container-lowest p-4 -m-4 rounded-lg transition-colors duration-300">
+<div class="w-24 font-label text-sm text-on-surface-variant flex-shrink-0 pt-1">12:00</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="bg-surface-variant text-on-surface-variant text-xs px-2 py-0.5 rounded font-label uppercase tracking-wide">On Duty</span>
+<h4 class="font-body font-medium text-on-surface">Fuel Stop &amp; Inspection</h4>
+</div>
+<p class="font-body text-sm text-on-surface-variant">Pre-trip inspection completed. 150 gallons diesel added.</p>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant font-label mt-2">
+<span class="material-symbols-outlined text-[16px]">local_gas_station</span>
+                                Toledo, OH
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
