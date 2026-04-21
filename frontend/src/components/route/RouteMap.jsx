@@ -1,56 +1,209 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import maplibregl from "maplibre-gl";
 
 
-function normalizePoints(points) {
-  if (!points?.length) {
-    return [
-      { label: "Origin", x: 20, y: 80 },
-      { label: "Pickup", x: 50, y: 50 },
-      { label: "Destination", x: 80, y: 20 },
-    ];
-  }
+const DEFAULT_STYLE = {
+  version: 8,
+  sources: {
+    "osm-raster": {
+      type: "raster",
+      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+      tileSize: 256,
+      attribution: "© OpenStreetMap contributors",
+    },
+  },
+  layers: [
+    {
+      id: "osm-raster",
+      type: "raster",
+      source: "osm-raster",
+    },
+  ],
+};
 
-  const lats = points.map((point) => Number(point.latitude));
-  const lons = points.map((point) => Number(point.longitude));
-  const minLat = Math.min(...lats);
-  const maxLat = Math.max(...lats);
-  const minLon = Math.min(...lons);
-  const maxLon = Math.max(...lons);
-  const latRange = maxLat - minLat || 1;
-  const lonRange = maxLon - minLon || 1;
+const MAP_STYLE = import.meta.env.VITE_MAP_STYLE_URL || DEFAULT_STYLE;
+const ROUTE_API_BASE =
+  import.meta.env.VITE_ROUTE_API_BASE ||
+  "https://router.project-osrm.org/route/v1/driving";
 
-  return points.map((point) => ({
-    ...point,
-    x: 15 + ((Number(point.longitude) - minLon) / lonRange) * 70,
-    y: 85 - ((Number(point.latitude) - minLat) / latRange) * 70,
-  }));
+function normalizeCoordinates(points) {
+  if (!points?.length) return [];
+  return points
+    .map((point) => [Number(point.longitude), Number(point.latitude)])
+    .filter((pair) => Number.isFinite(pair[0]) && Number.isFinite(pair[1]));
+}
+
+function createGeoJsonLine(coordinates) {
+  return {
+    type: "Feature",
+    geometry: {
+      type: "LineString",
+      coordinates,
+    },
+    properties: {},
+  };
+}
+
+function createGeoJsonPoints(points) {
+  return {
+    type: "FeatureCollection",
+    features: points.map((point, index) => ({
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [Number(point.longitude), Number(point.latitude)],
+      },
+      properties: {
+        label: index === 0 ? "Start" : index === points.length - 1 ? "Drop" : "Pickup",
+      },
+    })),
+  };
+}
+
+function boundsFromCoords(coords) {
+  if (!coords.length) return null;
+  const lons = coords.map((pair) => pair[0]);
+  const lats = coords.map((pair) => pair[1]);
+  return [
+    [Math.min(...lons), Math.min(...lats)],
+    [Math.max(...lons), Math.max(...lats)],
+  ];
 }
 
 
 export default function RouteMap({ route, schedule }) {
-  const [zoom, setZoom] = useState(1);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const points = normalizePoints(route?.map_points);
-  const polyline = points.map((point) => `${point.x},${point.y}`).join(" ");
+  const mapContainerRef = useRef(null);
+  const mapRef = useRef(null);
+  const routeSourceId = "trip-route";
+  const stopsSourceId = "trip-stops";
   const stopCount = schedule?.filter((segment) => segment.status !== "driving").length || 0;
-  const zoomIn = () => setZoom((value) => Math.min(1.8, Number((value + 0.2).toFixed(1))));
-  const zoomOut = () => setZoom((value) => Math.max(0.8, Number((value - 0.2).toFixed(1))));
+  const points = route?.map_points || [];
+  const coordinates = useMemo(() => normalizeCoordinates(points), [points]);
+  const [routeState, setRouteState] = useState({ loading: false, error: "" });
+  const zoomIn = () => mapRef.current?.zoomIn();
+  const zoomOut = () => mapRef.current?.zoomOut();
   const recenter = () => {
-    setZoom(1);
-    setOffset({ x: 0, y: 0 });
+    const bounds = boundsFromCoords(coordinates);
+    if (bounds && mapRef.current) {
+      mapRef.current.fitBounds(bounds, { padding: 80, duration: 600 });
+    }
   };
+
+  useEffect(() => {
+    if (!mapContainerRef.current || mapRef.current) return;
+    const map = new maplibregl.Map({
+      container: mapContainerRef.current,
+      style: MAP_STYLE,
+      center: [-96.5, 38.5],
+      zoom: 3,
+      attributionControl: false,
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
+    mapRef.current = map;
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !coordinates.length) return;
+    let cancelled = false;
+    const run = async () => {
+      setRouteState({ loading: true, error: "" });
+      const coordinatePath = coordinates.map((pair) => pair.join(",")).join(";");
+      try {
+        const response = await fetch(
+          `${ROUTE_API_BASE}/${coordinatePath}?overview=full&geometries=geojson`,
+          { credentials: "omit" },
+        );
+        if (!response.ok) throw new Error("Unable to fetch route.");
+        const data = await response.json();
+        if (!data?.routes?.[0]?.geometry?.coordinates) {
+          throw new Error("Route data unavailable.");
+        }
+        if (cancelled) return;
+
+        const routeFeature = createGeoJsonLine(data.routes[0].geometry.coordinates);
+        const stopFeature = createGeoJsonPoints(points);
+
+        const ensureSources = () => {
+          if (!map.getSource(routeSourceId)) {
+            map.addSource(routeSourceId, { type: "geojson", data: routeFeature });
+            map.addLayer({
+              id: "route-line",
+              type: "line",
+              source: routeSourceId,
+              paint: {
+                "line-color": "#003686",
+                "line-width": 4,
+                "line-opacity": 0.85,
+              },
+            });
+          } else {
+            map.getSource(routeSourceId).setData(routeFeature);
+          }
+
+          if (!map.getSource(stopsSourceId)) {
+            map.addSource(stopsSourceId, { type: "geojson", data: stopFeature });
+            map.addLayer({
+              id: "route-stops",
+              type: "circle",
+              source: stopsSourceId,
+              paint: {
+                "circle-radius": ["case", ["==", ["get", "label"], "Drop"], 6, 5],
+                "circle-color": [
+                  "case",
+                  ["==", ["get", "label"], "Pickup"],
+                  "#6d5e00",
+                  ["==", ["get", "label"], "Drop"],
+                  "#ffffff",
+                  "#003686",
+                ],
+                "circle-stroke-color": "#6d5e00",
+                "circle-stroke-width": 1.5,
+              },
+            });
+          } else {
+            map.getSource(stopsSourceId).setData(stopFeature);
+          }
+        };
+
+        if (!map.isStyleLoaded()) {
+          map.once("load", ensureSources);
+        } else {
+          ensureSources();
+        }
+
+        const bounds = boundsFromCoords(data.routes[0].geometry.coordinates);
+        if (bounds) {
+          map.fitBounds(bounds, { padding: 90, duration: 800 });
+        }
+        setRouteState({ loading: false, error: "" });
+      } catch (error) {
+        if (!cancelled) {
+          setRouteState({
+            loading: false,
+            error: error.message || "Unable to load route.",
+          });
+        }
+      }
+    };
+
+    run();
+    return () => {
+      cancelled = true;
+    };
+  }, [ROUTE_API_BASE, coordinates, points]);
 
   return (
     <section className="flex-1 relative bg-surface-container-high min-h-[620px] md:min-h-0 overflow-hidden" data-testid="route-map">
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-60 grayscale"
-        style={{
-          backgroundImage:
-            "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzbTlB1edrvK9IUdBACnVHsIAXvstFxfm_l5kSzJA60RL8gxlrtxIZCCErVNgeu-s90yjI-QUcGAaYGw0kxOc344sKprZQ92EbBKlRgXVIcceAzIg_p44vMyU-ieabIPz0OmIVjLZkbZMU-0vX-Rpe1BQ_VHft4ujB77zRQ0d71dFCaeVrLHihqh5Uy01Aptv1124CnyvW3REtgRCfvPTCC6mTDdM0KuG_Wd_aw86XHWeQSzuSpkjsw8H_cL6kmltfDkJwwuUuXoQn')",
-        }}
-      />
+      <div ref={mapContainerRef} className="absolute inset-0" />
       <div className="absolute top-6 left-6 right-6 flex justify-between items-start pointer-events-none">
-        <div className="bg-surface-container-lowest/90 backdrop-blur-md px-6 py-3 rounded-full ghost-border pointer-events-auto flex flex-wrap gap-6 items-center shadow-[0_8px_32px_rgba(25,27,34,0.06)]">
+        <div className="bg-surface-container-lowest/90 backdrop-blur-md px-6 py-3 rounded-full ghost-border pointer-events-auto flex flex-wrap gap-6 items-center shadow-[0_8px_32px_rgb(var(--color-shadow)_/_0.3)]">
           <div className="flex flex-col">
             <span className="font-label text-xs text-on-surface-variant uppercase tracking-wider">Distance</span>
             <span className="font-body font-medium text-on-surface">{Math.round(route?.total_distance_miles || 0).toLocaleString()} mi</span>
@@ -77,7 +230,7 @@ export default function RouteMap({ route, schedule }) {
           ].map(([icon, label, action], index) => (
             <button
               key={icon}
-              className={`w-10 h-10 bg-surface-container-lowest/90 backdrop-blur-md rounded-full flex items-center justify-center ghost-border text-on-surface hover:bg-surface-container-lowest shadow-[0_8px_32px_rgba(25,27,34,0.06)] transition-colors ${index === 2 ? "mt-4" : ""}`}
+              className={`w-10 h-10 bg-surface-container-lowest/90 backdrop-blur-md rounded-full flex items-center justify-center ghost-border text-on-surface hover:bg-surface-container-lowest shadow-[0_8px_32px_rgb(var(--color-shadow)_/_0.3)] transition-colors ${index === 2 ? "mt-4" : ""}`}
               aria-label={label}
               onClick={action}
             >
@@ -86,25 +239,16 @@ export default function RouteMap({ route, schedule }) {
           ))}
         </div>
       </div>
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-        <g transform={`translate(${offset.x} ${offset.y}) scale(${zoom}) translate(${(100 - 100 * zoom) / (2 * zoom)} ${(100 - 100 * zoom) / (2 * zoom)})`}>
-          <polyline points={polyline} fill="none" stroke="#003686" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" opacity="0.85" />
-          {points.map((point, index) => {
-            const isLast = index === points.length - 1;
-            return (
-              <g key={`${point.label}-${index}`}>
-                <circle cx={point.x} cy={point.y} r={isLast ? 2.6 : 2.1} fill={isLast ? "#ffffff" : "#003686"} stroke={isLast ? "#6d5e00" : "#ffffff"} strokeWidth="0.8" />
-                <text x={point.x} y={point.y - 4} textAnchor="middle" fill="#191b22" fontSize="2.8" fontFamily="Public Sans">
-                  {index === 0 ? "Start" : isLast ? "Drop" : "Pickup"}
-                </text>
-              </g>
-            );
-          })}
-        </g>
-      </svg>
-      <div className="absolute bottom-6 right-6 bg-surface-container-lowest/90 backdrop-blur-md rounded-full ghost-border px-4 py-2 font-label text-xs text-on-surface-variant">
-        Zoom {Math.round(zoom * 100)}%
-      </div>
+      {routeState.loading && (
+        <div className="absolute bottom-6 right-6 bg-surface-container-lowest/90 backdrop-blur-md rounded-full ghost-border px-4 py-2 font-label text-xs text-on-surface-variant">
+          Fetching route...
+        </div>
+      )}
+      {routeState.error && (
+        <div className="absolute bottom-6 right-6 bg-error-container text-on-error-container rounded-full ghost-border px-4 py-2 font-label text-xs">
+          {routeState.error}
+        </div>
+      )}
     </section>
   );
 }

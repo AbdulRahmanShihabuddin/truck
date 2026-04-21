@@ -32,7 +32,7 @@
 ```
 
 `start_at` is optional. If omitted, the backend uses the current server time.
-Locations must be supported city names from the offline table or latitude/longitude strings such as `40.7128,-74.0060`.
+Locations must be supported city names from the offline table. The frontend submits the matching latitude/longitude values for the selected locations.
 
 ### Response
 

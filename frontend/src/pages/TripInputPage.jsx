@@ -3,13 +3,20 @@ import { useNavigate } from "react-router-dom";
 
 import TopNav from "../components/layout/TopNav.jsx";
 import { useTrip } from "../state/TripContext.jsx";
+import { SUPPORTED_LOCATION_MAP, SUPPORTED_LOCATIONS } from "../utils/locations.js";
 import { todayAtEightIso } from "../utils/time.js";
 
 
 const defaultForm = {
   current_location: "New York, NY",
+  current_location_lat: 40.7128,
+  current_location_lng: -74.006,
   pickup_location: "Chicago, IL",
+  pickup_location_lat: 41.8781,
+  pickup_location_lng: -87.6298,
   dropoff_location: "Los Angeles, CA",
+  dropoff_location_lat: 34.0522,
+  dropoff_location_lng: -118.2437,
   current_cycle_used: 34,
   driver_name: "",
   vehicle_id: "",
@@ -29,16 +36,41 @@ export default function TripInputPage() {
 
   const updateField = (event) => {
     const { name, value } = event.target;
+    const nextValue = name === "current_cycle_used" ? value : value;
+    if (name === "current_location" || name === "pickup_location" || name === "dropoff_location") {
+      const match = SUPPORTED_LOCATION_MAP.get(nextValue.toLowerCase());
+      setFormData((current) => {
+        const next = { ...current, [name]: nextValue };
+        if (match) {
+          next[`${name}_lat`] = match.latitude;
+          next[`${name}_lng`] = match.longitude;
+        } else {
+          next[`${name}_lat`] = "";
+          next[`${name}_lng`] = "";
+        }
+        return next;
+      });
+      return;
+    }
     setFormData((current) => ({
       ...current,
-      [name]: name === "current_cycle_used" ? value : value,
+      [name]: nextValue,
     }));
   };
 
   const validate = () => {
     if (!formData.current_location.trim()) return "Current location is required.";
+    if (formData.current_location_lat === "" || formData.current_location_lng === "") {
+      return "Select a supported current location from the list.";
+    }
     if (!formData.pickup_location.trim()) return "Pickup location is required.";
+    if (formData.pickup_location_lat === "" || formData.pickup_location_lng === "") {
+      return "Select a supported pickup location from the list.";
+    }
     if (!formData.dropoff_location.trim()) return "Drop-off location is required.";
+    if (formData.dropoff_location_lat === "" || formData.dropoff_location_lng === "") {
+      return "Select a supported drop-off location from the list.";
+    }
     const cycle = Number(formData.current_cycle_used);
     if (Number.isNaN(cycle) || cycle < 0 || cycle > 70) return "Current cycle used must be between 0 and 70 hours.";
     if (!formData.driver_name.trim()) return "Driver name is required.";
@@ -96,9 +128,9 @@ export default function TripInputPage() {
               <h2 className="font-headline text-2xl text-on-surface mb-8 border-b border-surface-variant pb-4">Routing Parameters</h2>
               <div className="space-y-6">
                 {[
-                  ["current_location", "Current Location", "explore", "Enter current city or facility..."],
-                  ["pickup_location", "Origin Point", "trip_origin", "Enter facility or coordinates..."],
-                  ["dropoff_location", "Destination Point", "location_on", "Enter receiving facility..."],
+                  ["current_location", "Current Location", "explore", "Choose a supported city..."],
+                  ["pickup_location", "Origin Point", "trip_origin", "Choose a supported city..."],
+                  ["dropoff_location", "Destination Point", "location_on", "Choose a supported city..."],
                 ].map(([name, label, icon, placeholder]) => (
                   <div key={name}>
                     <label className="block font-label text-sm text-on-surface-variant mb-2 ml-1" htmlFor={name}>
@@ -109,13 +141,22 @@ export default function TripInputPage() {
                       <input
                         id={name}
                         name={name}
+                        list={`supported-${name}`}
                         className="bg-transparent border-none w-full text-on-surface font-body placeholder:text-outline-variant focus:ring-0 p-0"
                         placeholder={placeholder}
                         type="text"
                         value={formData[name]}
                         onChange={updateField}
                       />
+                      <datalist id={`supported-${name}`}>
+                        {SUPPORTED_LOCATIONS.map((location) => (
+                          <option key={location.label} value={location.label} />
+                        ))}
+                      </datalist>
                     </div>
+                    <p className="mt-2 text-xs font-label text-on-surface-variant">
+                      Pick from supported US locations to guarantee routing.
+                    </p>
                   </div>
                 ))}
               </div>
@@ -238,7 +279,7 @@ export default function TripInputPage() {
 
             <div className="pt-8 flex flex-wrap items-center gap-6">
               <button
-                className="btn-primary-gradient text-on-primary font-body font-medium px-8 py-4 rounded-md shadow-[0_8px_32px_-8px_rgba(0,54,134,0.3)] hover:opacity-90 transition-opacity flex items-center gap-3 disabled:opacity-60"
+                className="btn-primary-gradient text-on-primary font-body font-medium px-8 py-4 rounded-md shadow-[0_8px_32px_-8px_rgb(var(--color-primary)_/_0.55)] hover:opacity-90 transition-opacity flex items-center gap-3 disabled:opacity-60"
                 type="submit"
                 disabled={loading}
               >
@@ -263,7 +304,7 @@ export default function TripInputPage() {
             }}
           />
           <div className="absolute inset-0 p-16 flex flex-col justify-end pointer-events-none">
-            <div className="bg-surface/80 backdrop-blur-xl p-8 rounded-xl border border-surface-variant shadow-[0_32px_64px_-16px_rgba(25,27,34,0.06)] max-w-sm">
+            <div className="bg-surface/80 backdrop-blur-xl p-8 rounded-xl border border-surface-variant shadow-[0_32px_64px_-16px_rgb(var(--color-shadow)_/_0.3)] max-w-sm">
               <p className="font-headline italic text-on-surface text-lg mb-2">
                 "Planning is bringing the future into the present so that you can do something about it now."
               </p>

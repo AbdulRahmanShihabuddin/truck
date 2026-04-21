@@ -87,6 +87,9 @@ def plan_trip(data):
         data["current_location"],
         data["pickup_location"],
         data["dropoff_location"],
+        current_coords=(data.get("current_location_lat"), data.get("current_location_lng")),
+        pickup_coords=(data.get("pickup_location_lat"), data.get("pickup_location_lng")),
+        dropoff_coords=(data.get("dropoff_location_lat"), data.get("dropoff_location_lng")),
     )
 
     if route["total_distance_miles"] > MAX_ROUTE_MILES:
@@ -146,8 +149,14 @@ def plan_trip(data):
         "trip_id": trip_id,
         "input": {
             "current_location": data["current_location"],
+            "current_location_lat": data.get("current_location_lat"),
+            "current_location_lng": data.get("current_location_lng"),
             "pickup_location": data["pickup_location"],
+            "pickup_location_lat": data.get("pickup_location_lat"),
+            "pickup_location_lng": data.get("pickup_location_lng"),
             "dropoff_location": data["dropoff_location"],
+            "dropoff_location_lat": data.get("dropoff_location_lat"),
+            "dropoff_location_lng": data.get("dropoff_location_lng"),
             "current_cycle_used": float(data["current_cycle_used"]),
             "start_at": _iso(data["start_at"]),
             "manifest": {

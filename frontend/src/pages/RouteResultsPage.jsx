@@ -53,7 +53,10 @@ export default function RouteResultsPage() {
     <div className="bg-surface text-on-surface font-body antialiased min-h-screen flex flex-col">
       <TopNav active="Planning" />
       <main className="flex-1 flex flex-col md:flex-row w-full max-w-screen-2xl mx-auto overflow-hidden">
-        <aside className="w-full md:w-[28rem] bg-surface-container-lowest flex flex-col shrink-0 overflow-y-auto" style={{ boxShadow: "1px 0 0 rgba(195, 198, 213, 0.15)" }}>
+        <aside
+          className="w-full md:w-[28rem] bg-surface-container-lowest flex flex-col shrink-0 overflow-y-auto"
+          style={{ boxShadow: "1px 0 0 rgb(var(--color-outline-variant) / 35%)" }}
+        >
           <div className="p-8 pb-4">
             <h1 className="font-headline text-3xl text-on-surface mb-2">Current Trip</h1>
             <p className="font-headline italic text-on-surface-variant">

@@ -11,7 +11,7 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-background text-on-surface font-body antialiased min-h-screen flex">
-      <aside className="bg-surface-dim text-primary h-screen w-72 left-0 top-0 fixed flex-col gap-8 p-8 border-r-0 shadow-[4px_0_24px_rgba(25,27,34,0.06)] z-40 hidden md:flex no-print">
+      <aside className="bg-surface-dim text-primary h-screen w-72 left-0 top-0 fixed flex-col gap-8 p-8 border-r-0 shadow-[4px_0_24px_rgb(var(--color-shadow)_/_0.35)] z-40 hidden md:flex no-print">
         <div>
           <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">The Curator</h1>
           <p className="font-label text-sm text-on-surface-variant mt-1">Fleet Intelligence</p>
@@ -47,7 +47,7 @@ export default function DashboardPage() {
               </p>
             </div>
             <button
-              className="btn-primary-gradient text-on-primary font-body font-medium px-8 py-4 rounded-xl shadow-[0_8px_24px_rgba(0,54,134,0.2)] hover:shadow-[0_12px_32px_rgba(0,54,134,0.3)] transition-all duration-300 flex items-center gap-3 group"
+              className="btn-primary-gradient text-on-primary font-body font-medium px-8 py-4 rounded-xl shadow-[0_8px_24px_rgb(var(--color-primary)_/_0.35)] hover:shadow-[0_12px_32px_rgb(var(--color-primary)_/_0.5)] transition-all duration-300 flex items-center gap-3 group"
               onClick={() => navigate("/trip/new")}
             >
               <span className="material-symbols-outlined group-hover:rotate-90 transition-transform duration-300">add</span>
@@ -65,7 +65,7 @@ export default function DashboardPage() {
                 {currentTrip ? (
                   <Link
                     to="/trip/results"
-                    className="bg-surface-container-lowest rounded-lg p-6 flex flex-col md:flex-row gap-6 items-start md:items-center relative transition-colors duration-300 hover:bg-surface-bright shadow-[0_4px_24px_rgba(25,27,34,0.02)]"
+                    className="bg-surface-container-lowest rounded-lg p-6 flex flex-col md:flex-row gap-6 items-start md:items-center relative transition-colors duration-300 hover:bg-surface-bright shadow-[0_4px_24px_rgb(var(--color-shadow)_/_0.18)]"
                   >
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-tertiary rounded-l-lg" />
                     <div className="flex-1">
@@ -84,7 +84,7 @@ export default function DashboardPage() {
                     <div className="w-full md:w-48">
                       <div className="flex items-center justify-between relative mb-2">
                         <div className="absolute left-0 right-0 top-1/2 h-px bg-surface-dim -translate-y-1/2 z-0" />
-                        <div className="w-2 h-2 rounded-full bg-tertiary z-10 shadow-[0_0_8px_rgba(109,94,0,0.4)]" />
+                        <div className="w-2 h-2 rounded-full bg-tertiary z-10 shadow-[0_0_8px_rgb(var(--color-tertiary)_/_0.55)]" />
                         <div className="w-2 h-2 rounded-full bg-tertiary z-10" />
                         <div className="w-2 h-2 rounded-full bg-surface-container-highest z-10" />
                       </div>
@@ -105,7 +105,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="md:col-span-4 flex flex-col gap-8">
-              <div className="bg-surface-container-lowest ghost-border rounded-xl p-8 shadow-[0_8px_32px_rgba(25,27,34,0.03)] flex-1">
+              <div className="bg-surface-container-lowest ghost-border rounded-xl p-8 shadow-[0_8px_32px_rgb(var(--color-shadow)_/_0.2)] flex-1">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="material-symbols-outlined text-tertiary">shield</span>
                   <h3 className="font-headline text-xl text-on-surface">Safety Overview</h3>

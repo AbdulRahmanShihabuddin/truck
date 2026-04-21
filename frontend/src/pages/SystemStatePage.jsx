@@ -17,11 +17,11 @@ export default function SystemStatePage({
       <main className="flex-grow flex items-center justify-center p-8 bg-surface">
         <div className="max-w-2xl w-full flex flex-col items-center text-center space-y-8">
           <div className="relative w-48 h-48 flex items-center justify-center bg-surface-container-low rounded-full">
-            <div className="absolute inset-0 rounded-full shadow-[inset_0_4px_24px_rgba(25,27,34,0.04)]" />
+            <div className="absolute inset-0 rounded-full shadow-[inset_0_4px_24px_rgb(var(--color-shadow)_/_0.4)]" />
             <span className="material-symbols-outlined text-8xl text-outline-variant" style={{ fontVariationSettings: "'wght' 200" }}>
               history_edu
             </span>
-            <div className="absolute -bottom-4 right-4 bg-surface-container-lowest p-3 rounded-full ghost-border shadow-[0_8px_32px_rgba(25,27,34,0.06)]">
+            <div className="absolute -bottom-4 right-4 bg-surface-container-lowest p-3 rounded-full ghost-border shadow-[0_8px_32px_rgb(var(--color-shadow)_/_0.3)]">
               <span className="material-symbols-outlined text-tertiary">search_off</span>
             </div>
           </div>
@@ -31,7 +31,7 @@ export default function SystemStatePage({
           </div>
           <div className="pt-8">
             <button
-              className="btn-primary-gradient text-on-primary font-body text-label-lg px-8 py-4 rounded-md shadow-[0_4px_12px_rgba(0,54,134,0.15)] hover:shadow-[0_6px_16px_rgba(0,54,134,0.2)] transition-shadow duration-300 flex items-center gap-3"
+              className="btn-primary-gradient text-on-primary font-body text-label-lg px-8 py-4 rounded-md shadow-[0_4px_12px_rgb(var(--color-primary)_/_0.4)] hover:shadow-[0_6px_16px_rgb(var(--color-primary)_/_0.5)] transition-shadow duration-300 flex items-center gap-3"
               onClick={() => navigate("/trip/new")}
             >
               <span className="material-symbols-outlined">add_circle</span>

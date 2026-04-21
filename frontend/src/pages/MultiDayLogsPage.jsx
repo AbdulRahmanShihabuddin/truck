@@ -76,7 +76,7 @@ export default function MultiDayLogsPage() {
             {currentTrip.daily_logs.map((log, index) => (
               <Link key={log.date} to={`/trip/logs/${logDatePath(log)}`} className={`block relative ${index === currentTrip.daily_logs.length - 1 ? "" : "mb-16"} md:pl-16`}>
                 <div className="absolute left-[11px] top-6 w-3 h-3 rounded-full bg-tertiary hidden md:block border-2 border-surface" />
-                <div className={`bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_32px_-8px_rgba(25,27,34,0.06)] hover:bg-surface-container-low transition-colors duration-500 group cursor-pointer relative overflow-hidden ${index === 0 ? "border-l-4 border-l-tertiary" : "ghost-border"}`}>
+                <div className={`bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_32px_-8px_rgb(var(--color-shadow)_/_0.3)] hover:bg-surface-container-low transition-colors duration-500 group cursor-pointer relative overflow-hidden ${index === 0 ? "border-l-4 border-l-tertiary" : "ghost-border"}`}>
                   <div className="flex flex-col lg:flex-row gap-8 justify-between">
                     <div className="flex-1">
                       <p className="font-label text-sm text-tertiary mb-1 uppercase tracking-widest">Day {index + 1} - {formatShortDate(log.date)}</p>

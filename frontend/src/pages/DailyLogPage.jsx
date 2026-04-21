@@ -52,7 +52,7 @@ export default function DailyLogPage() {
 
   const remarkPanel = (
     <div className="fixed inset-0 bg-on-surface/20 backdrop-blur-sm z-[80] flex items-center justify-center p-4 no-print">
-      <form className="bg-surface-container-lowest rounded-xl ghost-border p-6 max-w-lg w-full shadow-[0_32px_64px_rgba(25,27,34,0.18)]" onSubmit={saveRemark}>
+      <form className="bg-surface-container-lowest rounded-xl ghost-border p-6 max-w-lg w-full shadow-[0_32px_64px_rgb(var(--color-shadow)_/_0.45)]" onSubmit={saveRemark}>
         <h2 className="font-headline text-2xl text-on-surface mb-2">Add Remark</h2>
         <p className="font-body text-sm text-on-surface-variant mb-4">Attach a dated note to {formatDate(`${log.date}T00:00:00`)}.</p>
         <textarea
@@ -90,7 +90,7 @@ export default function DailyLogPage() {
           <span className="font-headline italic text-tertiary text-sm">{log.hos_status}</span>
         </header>
         <main className="px-4 flex flex-col gap-8 mt-2">
-          <section className="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_32px_rgba(25,27,34,0.03)] flex flex-col gap-6">
+          <section className="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_32px_rgb(var(--color-shadow)_/_0.2)] flex flex-col gap-6">
             <div className="flex justify-between items-end">
               <div>
                 <p className="font-label text-sm text-on-surface-variant mb-1">Total Driving</p>
@@ -118,7 +118,7 @@ export default function DailyLogPage() {
             <h2 className="font-headline text-lg font-semibold text-on-surface px-2">Log Entries</h2>
             <div className="flex flex-col gap-3">
               {log.events.map((event, index) => (
-                <div key={`${event.start_at}-${index}`} className={`bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_24px_rgba(25,27,34,0.02)] flex gap-4 items-center ${event.status === "driving" ? "border-l-4 border-tertiary" : ""}`}>
+                <div key={`${event.start_at}-${index}`} className={`bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_24px_rgb(var(--color-shadow)_/_0.18)] flex gap-4 items-center ${event.status === "driving" ? "border-l-4 border-tertiary" : ""}`}>
                   <div className="w-12 text-center">
                     <span className={`font-label text-sm font-medium block ${event.status === "driving" ? "text-primary" : "text-on-surface-variant"}`}>{formatTime(event.start_at)}</span>
                   </div>
@@ -135,7 +135,7 @@ export default function DailyLogPage() {
             </div>
           </section>
         </main>
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-2xl pt-4 pb-8 px-6 shadow-[0_-10px_40px_rgba(25,27,34,0.05)] border-t border-surface-container-high no-print">
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-2xl pt-4 pb-8 px-6 shadow-[0_-10px_40px_rgb(var(--color-shadow)_/_0.3)] border-t border-surface-container-high no-print">
           <div className="max-w-md mx-auto flex gap-3">
             <button
               className="flex-1 bg-surface-container-low text-primary py-4 rounded-xl font-body font-medium text-lg flex justify-center items-center gap-2"
@@ -145,7 +145,7 @@ export default function DailyLogPage() {
               Remark
             </button>
             <button
-              className="flex-1 btn-primary-gradient text-on-primary py-4 rounded-xl font-body font-medium text-lg shadow-[0_8px_24px_rgba(9,76,178,0.2)] hover:shadow-[0_12px_32px_rgba(9,76,178,0.3)] transition-all duration-300 flex justify-center items-center gap-2"
+              className="flex-1 btn-primary-gradient text-on-primary py-4 rounded-xl font-body font-medium text-lg shadow-[0_8px_24px_rgb(var(--color-primary)_/_0.35)] hover:shadow-[0_12px_32px_rgb(var(--color-primary)_/_0.5)] transition-all duration-300 flex justify-center items-center gap-2"
               onClick={() => navigate("/trip/review")}
             >
               <span className="material-symbols-outlined">verified</span>
@@ -156,18 +156,18 @@ export default function DailyLogPage() {
       </div>
 
       <div className="hidden md:flex flex-1 max-w-screen-2xl mx-auto w-full">
-        <aside className="hidden md:flex h-screen w-72 left-0 top-0 fixed bg-slate-100 text-blue-900 font-serif text-lg flex-col gap-8 p-8 border-r border-slate-200/10 z-40 pt-32 no-print">
+        <aside className="hidden md:flex h-screen w-72 left-0 top-0 fixed bg-surface-dim text-on-surface font-serif text-lg flex-col gap-8 p-8 border-r border-outline-variant/20 z-40 pt-32 no-print">
           <div>
-            <h2 className="font-headline italic text-xl text-amber-700 mb-1">The Curator</h2>
-            <p className="text-sm text-slate-500 font-label tracking-widest uppercase">Fleet Intelligence</p>
+            <h2 className="font-headline italic text-xl text-tertiary mb-1">The Curator</h2>
+            <p className="text-sm text-on-surface-variant font-label tracking-widest uppercase">Fleet Intelligence</p>
           </div>
           <nav className="flex flex-col gap-4">
-            <Link className="flex items-center gap-3 text-slate-500 font-label uppercase tracking-widest text-xs hover:text-blue-800 group" to="/trip/results">
-              <span className="material-symbols-outlined group-hover:text-blue-800 transition-colors">map</span>
+            <Link className="flex items-center gap-3 text-on-surface-variant font-label uppercase tracking-widest text-xs hover:text-on-surface group" to="/trip/results">
+              <span className="material-symbols-outlined group-hover:text-on-surface transition-colors">map</span>
               Current Trip
             </Link>
-            <Link className="flex items-center gap-3 text-blue-900 font-bold italic translate-x-2 transition-transform group" to="/trip/logs">
-              <span className="material-symbols-outlined text-blue-900">history_edu</span>
+            <Link className="flex items-center gap-3 text-on-surface font-bold italic translate-x-2 transition-transform group" to="/trip/logs">
+              <span className="material-symbols-outlined text-on-surface">history_edu</span>
               Logbook
             </Link>
           </nav>
@@ -183,7 +183,7 @@ export default function DailyLogPage() {
             </div>
             <div className="flex gap-4 items-center no-print">
               <button className="font-body text-primary hover:underline px-4 py-2 transition-all" onClick={() => setRemarkOpen(true)}>Add Remark</button>
-              <button className="btn-primary-gradient text-on-primary font-body font-medium px-6 py-3 rounded-md hover:opacity-90 transition-opacity shadow-[0_4px_14px_0_rgba(0,54,134,0.39)]" onClick={() => navigate("/trip/review")}>Verify Log</button>
+              <button className="btn-primary-gradient text-on-primary font-body font-medium px-6 py-3 rounded-md hover:opacity-90 transition-opacity shadow-[0_4px_14px_0_rgb(var(--color-primary)_/_0.5)]" onClick={() => navigate("/trip/review")}>Verify Log</button>
             </div>
           </div>
           <div className="bg-surface-container-lowest rounded-xl p-8 mb-12 relative overflow-hidden ring-1 ring-outline-variant/15">

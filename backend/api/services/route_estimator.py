@@ -84,17 +84,12 @@ def parse_coordinates(location):
 def is_supported_location(location):
     if not location or not location.strip():
         return False
-    if normalize_location(location) in KNOWN_LOCATIONS:
-        return True
-    try:
-        return parse_coordinates(location) is not None
-    except LocationResolutionError:
-        return False
+    return normalize_location(location) in KNOWN_LOCATIONS
 
 
 def supported_location_hint():
     examples = ["New York, NY", "Chicago, IL", "Los Angeles, CA", "Seattle, WA", "Denver, CO"]
-    return f"Use a supported city ({', '.join(examples)}) or coordinates like 40.7128,-74.0060."
+    return f"Use a supported city ({', '.join(examples)})."
 
 
 def resolve_location(location):
@@ -103,12 +98,13 @@ def resolve_location(location):
         latitude, longitude = KNOWN_LOCATIONS[key]
         return RoutePoint(location, latitude, longitude, "known")
 
-    coordinates = parse_coordinates(location)
-    if coordinates:
-        latitude, longitude = coordinates
-        return RoutePoint(location, latitude, longitude, "coordinate")
-
     raise LocationResolutionError(location)
+
+
+def resolve_location_with_coords(location, latitude=None, longitude=None):
+    if latitude is not None and longitude is not None:
+        return RoutePoint(location, float(latitude), float(longitude), "client")
+    return resolve_location(location)
 
 
 def haversine_miles(point_a, point_b):
@@ -127,9 +123,9 @@ def haversine_miles(point_a, point_b):
     return 2 * earth_radius_miles * math.asin(math.sqrt(hav))
 
 
-def estimate_leg(origin, destination, purpose):
-    origin_point = resolve_location(origin)
-    destination_point = resolve_location(destination)
+def estimate_leg(origin, destination, purpose, origin_coords=None, destination_coords=None):
+    origin_point = resolve_location_with_coords(origin, *(origin_coords or (None, None)))
+    destination_point = resolve_location_with_coords(destination, *(destination_coords or (None, None)))
     straight_line = haversine_miles(origin_point, destination_point)
     distance = max(MIN_LEG_MILES, straight_line * ROAD_CIRCUITY_FACTOR)
 
@@ -142,10 +138,29 @@ def estimate_leg(origin, destination, purpose):
     }
 
 
-def estimate_route(current_location, pickup_location, dropoff_location):
+def estimate_route(
+    current_location,
+    pickup_location,
+    dropoff_location,
+    current_coords=None,
+    pickup_coords=None,
+    dropoff_coords=None,
+):
     legs = [
-        estimate_leg(current_location, pickup_location, "deadhead_to_pickup"),
-        estimate_leg(pickup_location, dropoff_location, "loaded_to_dropoff"),
+        estimate_leg(
+            current_location,
+            pickup_location,
+            "deadhead_to_pickup",
+            origin_coords=current_coords,
+            destination_coords=pickup_coords,
+        ),
+        estimate_leg(
+            pickup_location,
+            dropoff_location,
+            "loaded_to_dropoff",
+            origin_coords=pickup_coords,
+            destination_coords=dropoff_coords,
+        ),
     ]
     total_distance = round(sum(leg["distance_miles"] for leg in legs), 1)
     map_points = [legs[0]["origin"], legs[0]["destination"], legs[1]["destination"]]

@@ -59,16 +59,16 @@ export default function LogHistoryPage() {
 
   return (
     <div className="bg-background text-on-background font-body antialiased min-h-screen flex flex-col md:flex-row">
-      <nav className="hidden md:flex flex-col gap-8 p-8 border-r border-slate-200/10 h-screen w-72 left-0 top-0 fixed bg-slate-100 z-40 surface-dim no-print">
+      <nav className="hidden md:flex flex-col gap-8 p-8 border-r border-outline-variant/20 h-screen w-72 left-0 top-0 fixed bg-surface-dim z-40 no-print">
         <div className="mb-8">
-          <h1 className="font-headline italic text-xl text-amber-700">The Curator</h1>
-          <p className="text-xs text-slate-500 font-label tracking-widest mt-1">Fleet Intelligence</p>
+          <h1 className="font-headline italic text-xl text-tertiary">The Curator</h1>
+          <p className="text-xs text-on-surface-variant font-label tracking-widest mt-1">Fleet Intelligence</p>
         </div>
         <ul className="flex flex-col gap-6 w-full">
           {archivedTrips.map((trip) => (
             <li key={trip.trip_id}>
               <button
-                className="text-left w-full flex items-center gap-4 text-slate-500 font-label tracking-widest text-xs hover:text-blue-800 uppercase"
+                className="text-left w-full flex items-center gap-4 text-on-surface-variant font-label tracking-widest text-xs hover:text-on-surface uppercase"
                 onClick={() => openTrip(trip.trip_id)}
               >
                 <span className="material-symbols-outlined">history_edu</span>
@@ -93,7 +93,7 @@ export default function LogHistoryPage() {
                 Print Log
               </button>
               <button
-                className="px-6 py-3 rounded-md btn-primary-gradient text-on-primary font-body font-medium shadow-[0_4px_14px_0_rgba(0,54,134,0.39)] hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 disabled:opacity-60"
+                className="px-6 py-3 rounded-md btn-primary-gradient text-on-primary font-body font-medium shadow-[0_4px_14px_0_rgb(var(--color-primary)_/_0.5)] hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 disabled:opacity-60"
                 onClick={() => selectedLog && navigate(`/trip/logs/${logDatePath(selectedLog)}`)}
                 disabled={!selectedLog}
               >
@@ -111,7 +111,7 @@ export default function LogHistoryPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1 flex flex-col gap-6">
-              <div className="bg-surface-container-lowest p-6 rounded-xl ghost-border shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+              <div className="bg-surface-container-lowest p-6 rounded-xl ghost-border shadow-[0_8px_30px_rgb(var(--color-shadow)_/_0.2)]">
                 <h3 className="text-title-md font-body text-on-surface mb-4">Archived Trips</h3>
                 <div className="space-y-3">
                   {archiveLoading && <p className="font-body text-on-surface-variant">Loading archives...</p>}
@@ -131,13 +131,13 @@ export default function LogHistoryPage() {
                 </div>
               </div>
 
-              <div className="bg-surface-container-lowest p-6 rounded-xl ghost-border shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+              <div className="bg-surface-container-lowest p-6 rounded-xl ghost-border shadow-[0_8px_30px_rgb(var(--color-shadow)_/_0.2)]">
                 <h3 className="text-title-md font-body text-on-surface mb-4">Select Date</h3>
                 <div className="grid grid-cols-2 gap-2 text-body-sm font-body">
                   {currentTrip?.daily_logs?.map((log) => (
                     <button
                       key={log.date}
-                      className={`p-3 rounded text-left ${selectedLog?.date === log.date ? "bg-primary-container text-on-primary-container font-bold shadow-[0_2px_8px_rgba(9,76,178,0.25)]" : "hover:bg-surface-container-low"}`}
+                      className={`p-3 rounded text-left ${selectedLog?.date === log.date ? "bg-primary-container text-on-primary-container font-bold shadow-[0_2px_8px_rgb(var(--color-primary)_/_0.35)]" : "hover:bg-surface-container-low"}`}
                       onClick={() => setSelectedDate(log.date)}
                     >
                       {formatShortDate(log.date)}
@@ -147,7 +147,7 @@ export default function LogHistoryPage() {
               </div>
 
               {selectedLog && (
-                <div className="bg-surface-container-lowest p-6 rounded-xl ghost-border shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                <div className="bg-surface-container-lowest p-6 rounded-xl ghost-border shadow-[0_8px_30px_rgb(var(--color-shadow)_/_0.2)]">
                   <h3 className="text-title-md font-body text-on-surface mb-6 border-b border-surface-variant pb-4">Cycle Summary</h3>
                   <div className="space-y-4">
                     <div>
@@ -188,7 +188,7 @@ export default function LogHistoryPage() {
                       <span className="text-label-sm font-label text-tertiary font-medium">{selectedLog.hos_status}</span>
                     </div>
                   </div>
-                  <div className="bg-surface-container-lowest rounded-xl ghost-border shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+                  <div className="bg-surface-container-lowest rounded-xl ghost-border shadow-[0_8px_30px_rgb(var(--color-shadow)_/_0.2)] overflow-hidden">
                     <div className="p-6 border-b border-surface-variant bg-surface-bright">
                       <LogGrid log={selectedLog} />
                     </div>

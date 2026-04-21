@@ -12,7 +12,6 @@ const navItems = [
   { to: "/trip/review", label: "Archive" },
 ];
 
-
 export default function TopNav({ active = "Dashboard" }) {
   const { currentTrip, archivedTrips } = useTrip();
   const [openPanel, setOpenPanel] = useState(null);
@@ -37,7 +36,7 @@ export default function TopNav({ active = "Dashboard" }) {
   return (
     <nav className="glass-nav docked full-width top-0 sticky z-50 no-border no-print">
       <div className="relative flex justify-between items-center px-6 md:px-12 py-5 md:py-6 w-full max-w-screen-2xl mx-auto">
-        <NavLink to="/" className="text-2xl font-headline italic text-blue-900 tracking-tight">
+        <NavLink to="/" className="text-2xl font-headline italic text-on-surface tracking-tight">
           Alexandria
         </NavLink>
         <div className="hidden md:flex gap-8 items-center">
@@ -49,8 +48,8 @@ export default function TopNav({ active = "Dashboard" }) {
                 to={item.to}
                 className={
                   isActive
-                    ? "text-blue-900 border-b-2 border-amber-600 font-medium px-3 py-2"
-                    : "text-slate-500 font-normal hover:text-blue-700 hover:bg-slate-200/50 transition-colors duration-300 px-3 py-2 rounded"
+                    ? "text-on-surface border-b-2 border-tertiary font-medium px-3 py-2"
+                    : "text-on-surface-variant font-normal hover:text-on-surface hover:bg-surface-container-low transition-colors duration-300 px-3 py-2 rounded"
                 }
               >
                 {item.label}
@@ -58,12 +57,12 @@ export default function TopNav({ active = "Dashboard" }) {
             );
           })}
         </div>
-        <div className="flex items-center gap-3 text-blue-900">
-          <button className="p-2 hover:bg-slate-200/50 rounded-full transition-colors" aria-label="Notifications" onClick={showNotifications}>
+        <div className="flex items-center gap-3 text-on-surface">
+          <button className="p-2 hover:bg-surface-container-low rounded-full transition-colors" aria-label="Notifications" onClick={showNotifications}>
             <span className="material-symbols-outlined">notifications</span>
           </button>
           <button
-            className="p-2 hover:bg-slate-200/50 rounded-full transition-colors"
+            className="p-2 hover:bg-surface-container-low rounded-full transition-colors"
             aria-label="Account"
             onClick={() => setOpenPanel(openPanel === "account" ? null : "account")}
           >
@@ -71,7 +70,7 @@ export default function TopNav({ active = "Dashboard" }) {
           </button>
         </div>
         {openPanel && (
-          <div className="absolute right-6 md:right-12 top-full mt-2 w-80 bg-surface-container-lowest ghost-border rounded-xl shadow-[0_16px_48px_rgba(25,27,34,0.12)] p-5 z-[60]">
+          <div className="absolute right-6 md:right-12 top-full mt-2 w-80 bg-surface-container-lowest ghost-border rounded-xl shadow-[0_16px_48px_rgb(var(--color-shadow)_/_0.4)] p-5 z-[60]">
             {openPanel === "notifications" ? (
               <div className="space-y-4">
                 <div>

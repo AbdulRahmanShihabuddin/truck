@@ -14,8 +14,14 @@ MANIFEST_FIELDS = (
 
 class TripInputSerializer(serializers.Serializer):
     current_location = serializers.CharField(max_length=200, trim_whitespace=True)
+    current_location_lat = serializers.FloatField(required=False)
+    current_location_lng = serializers.FloatField(required=False)
     pickup_location = serializers.CharField(max_length=200, trim_whitespace=True)
+    pickup_location_lat = serializers.FloatField(required=False)
+    pickup_location_lng = serializers.FloatField(required=False)
     dropoff_location = serializers.CharField(max_length=200, trim_whitespace=True)
+    dropoff_location_lat = serializers.FloatField(required=False)
+    dropoff_location_lng = serializers.FloatField(required=False)
     current_cycle_used = serializers.FloatField(min_value=0, max_value=70)
     start_at = serializers.DateTimeField(required=False)
     driver_name = serializers.CharField(max_length=120, trim_whitespace=True)
@@ -26,11 +32,21 @@ class TripInputSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         errors = {}
-        for field in ("current_location", "pickup_location", "dropoff_location"):
-            if not attrs[field].strip():
-                errors[field] = "This location cannot be blank."
-            elif not is_supported_location(attrs[field]):
-                errors[field] = supported_location_hint()
+        location_fields = (
+            ("current_location", "current_location_lat", "current_location_lng"),
+            ("pickup_location", "pickup_location_lat", "pickup_location_lng"),
+            ("dropoff_location", "dropoff_location_lat", "dropoff_location_lng"),
+        )
+        for name, lat_key, lng_key in location_fields:
+            if not attrs[name].strip():
+                errors[name] = "This location cannot be blank."
+            elif lat_key in attrs and lng_key in attrs:
+                lat = attrs.get(lat_key)
+                lng = attrs.get(lng_key)
+                if lat is None or lng is None:
+                    errors[name] = "Select a supported location from the list."
+            elif not is_supported_location(attrs[name]):
+                errors[name] = supported_location_hint()
 
         for field in ("driver_name", "vehicle_id", "trailer_id", "cargo_classification"):
             if not attrs[field].strip():

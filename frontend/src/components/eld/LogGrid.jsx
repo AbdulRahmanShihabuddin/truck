@@ -67,7 +67,7 @@ export default function LogGrid({ log }) {
             <path
               d={path}
               fill="none"
-              stroke="#003686"
+              stroke="rgb(var(--color-primary))"
               strokeLinejoin="miter"
               strokeLinecap="square"
               strokeWidth="2.5"
